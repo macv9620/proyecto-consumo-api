@@ -1,0 +1,19 @@
+{
+  "name": "proyecto-consumo-api",
+  "version": "1.0.0",
+  "description": "Proyecto práctico consumo API Rest con JS",
+  "main": "index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/macv9620/proyecto-consumo-api.git"
+  },
+  "author": "macv9620",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/macv9620/proyecto-consumo-api/issues"
+  },
+  "homepage": "https://github.com/macv9620/proyecto-consumo-api#readme"
+}
