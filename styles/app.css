@@ -114,12 +114,91 @@ footer {
   cursor: pointer;
 }
 
-.movie-img{
-    border-radius: 8px;
+.movie-img {
+  border-radius: 8px;
 }
 
+.categoriesPreview-list,
+.categories-list {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+  flex-wrap: wrap;
+}
 
+/* Header */
 
+.header-container {
+  padding-top: 40px;
+}
+
+/*Este modificador de clase se usa para cambiar el layout a la hora de visualizar el detalle de una película"*/
+.header-container--long {
+  background-image: url("https://pics.filmaffinity.com/Deadpool-777527803-large.jpg");
+  background: linear-gradient(
+      180deg,
+      rgba(0, 0, 0, 0.35) 19.27%,
+      rgba(0, 0, 0, 0) 29.17%
+    ),
+    url(https://pics.filmaffinity.com/Deadpool-777527803-large.jpg);
+  background-size: cover !important;
+  height: 480px;
+  position: fixed;
+  top: 0;
+  width: 100%;
+}
+
+/*Este modificador controla el cambio del header en la vista de películas por categoría*/
+.header-container--categoryView {
+  background: linear-gradient(
+    180deg,
+    rgba(238, 204, 117, 0.5) 0%,
+    rgba(238, 204, 117, 0) 72.92%
+  );
+}
+
+.header-title {
+  margin-bottom: 16px;
+}
+
+.header-arrow {
+  font-weight: var(--font-weight-text2);
+  font-size: 36px;
+  margin-bottom: 16px;
+  cursor: pointer;
+  display: inline-block;
+}
+
+/*Este modificador camba de color la flecha cuando se está en vista de detalle o vista de categoria*/
+.header-arrow--white {
+  color: var(--purple-light-1);
+}
+
+/*Formato para la barra de búsqueda*/
+.header-searchForm {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  flex-wrap: nowrap;
+}
+
+.header-searchForm input {
+  height: 48px;
+  width: 100%;
+  border-top-left-radius: 8px;
+  border-bottom-left-radius: 8px;
+}
+
+.header-searchForm button {
+  width: 56px;
+  height: 48px;
+  border-top-right-radius: 8px;
+  border-bottom-right-radius: 8px;
+}
+
+Continua seccion TENDING
 
 .inactive {
   display: none;
