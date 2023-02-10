@@ -66,4 +66,32 @@ async function getTrendingPreview() {
   });
 }
 
+async function getCategoriesListPreview() {
+  const res = await fetch(
+    `https://api.themoviedb.org/3/genre/movie/list?api_key=${API_KEY}&language=en-US`
+  );
+  const data = await res.json();
+  const genres = await data.genres;
+  console.log(data);
+  await genres.forEach((category) => {
+    const categoriesPreviewContainer = document.querySelector(
+      "#categoriesPreview .categoriesPreview-list"
+    );
+
+    const categoryContainer = document.createElement("div");
+    categoryContainer.setAttribute("class", "category-container");
+    const categoryTitle = document.createElement("h3");
+    const categoryTitleText = document.createTextNode(category.name);
+
+    categoryTitle.appendChild(categoryTitleText);
+
+    categoryTitle.setAttribute("id", `id${category.id}`);
+    categoryTitle.setAttribute("class", "category-title");
+
+    categoriesPreviewContainer.appendChild(categoryContainer);
+    categoryContainer.appendChild(categoryTitle);
+  });
+}
+
 getTrendingPreview();
+getCategoriesListPreview();
