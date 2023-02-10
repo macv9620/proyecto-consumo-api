@@ -19,29 +19,29 @@
   <body>
     <!--headerContainerLong (modificador) va a permitir cambiar la vista al detalle de la película al activar y desactivar en conjunto con otros formatos como el de activación e inactivación-->
 
-    <header id="header" class="header-container header-container--categoryView">
+    <header id="header" class="header-container header-container--long">
       <!--&lt; inserta una flecha que se usará para retroceder-->
       <!--El modificador headerarrowwhite cambia el color para las diferentes vistas de la flecha de navegación-->
-      <span class="header-arrow">&lt;</span>
+      <span class="header-arrow--white">&lt;</span>
       <!--Título vista inicial-->
-      <h1 class="header-title">WorldMovies</h1>
+      <h1 class="header-title inactive">WorldMovies</h1>
       <!--Título vista de categoría-->
-      <h1 class="header-title">Acción</h1>
+      <h1 class="header-title inactive">Acción</h1>
       <!--Formulario de búsqueda-->
-      <form class="header-searchForm">
+      <form class="header-searchForm inactive">
         <input type="text" placeholder="Movie Name" />
         <button>🔍</button>
       </form>
     </header>
 
     <!--Sección para previsualizar algunas películas tendencia-->
-    <section class="trendingPreview-container">
+    <section class="trendingPreview-container inactive">
       <div class="trendingPreview-header">
         <h2>Tendencia</h2>
-        <button>Ver más contenido</button>
+        <button class="trendingPreview-btn">Ver más</button>
       </div>
 
-      <article>
+      <article class="trendingPreview-movieList">
         <div class="movie-container">
           <img
             src="https://image.tmdb.org/t/p/w300/adOzdWS35KAo21r9R4BuFCkLer6.jpg"
@@ -69,26 +69,26 @@
     </section>
 
     <!--Sección para previsualizar los nombres de las categorías mas no las películas como tal-->
-    <section class="categoriesPreview-container">
+    <section class="categoriesPreview-container inactive">
       <h2 class="categoriesPreview-title">Categorías</h2>
       <!--Nombres de las categorías-->
       <article class="categoriesPreview-list">
-        <div>
-          <h3>Romance</h3>
+        <div class="category-container">
+          <h3 class="category-title">Romance</h3>
         </div>
 
-        <div>
-          <h3>Drama</h3>
+        <div class="category-container">
+          <h3 class="category-title">Drama</h3>
         </div>
 
-        <div>
-          <h3>Acción</h3>
+        <div class="category-container">
+          <h3 class="category-title">Acción</h3>
         </div>
       </article>
     </section>
 
     <!--Sección para visualizar un listado general de películas-->
-    <section>
+    <section class="genericList-container inactive">
       <div class="movie-container">
         <img
           src="https://image.tmdb.org/t/p/w300/adOzdWS35KAo21r9R4BuFCkLer6.jpg"
@@ -115,37 +115,53 @@
     </section>
 
     <!--Sección o vista para el detalle de la película-->
-    <section>
+    <section class="movieDetail-container">
       <!--Título de la película-->
-      <h1>Deadpool</h1>
+      <h1 class="movieDetail-title">Deadpool</h1>
       <!--Calificación-->
-      <span>7.6</span>
+      <span class="movieDetail-score">7.6</span>
       <!--Descripción-->
-      <p>
+      <p class="movieDetail-description">
         Wisecracking mercenary Deadpool battles the evil and powerful Cable and
         other bad guys to save a boy's life.
       </p>
 
       <!--Categorías que pueden asociarse a la película-->
       <article class="categories-list">
-        <div>
-          <h3>Romance</h3>
+        <div class="category-container">
+          <h3 class="category-title">Romance</h3>
         </div>
 
-        <div>
-          <h3>Drama</h3>
+        <div class="category-container">
+          <h3 class="category-title">Drama</h3>
         </div>
 
-        <div>
-          <h3>Acción</h3>
+        <div class="category-container">
+          <h3 class="category-title">Acción</h3>
         </div>
       </article>
 
       <!--Películas relacionadas-->
-      <article>
-        <h2>Películas relacionadas</h2>
+      <article class="relatedMovies-container">
+        <h2 class="relatedMovies-title">Películas relacionadas</h2>
 
-        <div>
+        <div class="relatedMovies-scrollContainer">
+          <div class="movie-container">
+            <img
+              src="https://image.tmdb.org/t/p/w300/adOzdWS35KAo21r9R4BuFCkLer6.jpg"
+              class="movie-img"
+              alt="Nombre de la película"
+            />
+          </div>
+
+          <div class="movie-container">
+            <img
+              src="https://image.tmdb.org/t/p/w300/adOzdWS35KAo21r9R4BuFCkLer6.jpg"
+              class="movie-img"
+              alt="Nombre de la película"
+            />
+          </div>
+
           <div class="movie-container">
             <img
               src="https://image.tmdb.org/t/p/w300/adOzdWS35KAo21r9R4BuFCkLer6.jpg"
@@ -173,7 +189,7 @@
       </article>
     </section>
 
-    <footer>Elaborado por Mateo Vasco</footer>
+    <footer class="footer">Elaborado por Mateo Vasco</footer>
 
     <script src="./src/main.js" type="module"></script>
   </body>
