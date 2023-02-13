@@ -14,7 +14,7 @@ const DOM_FOOTER = document.querySelector(".footer");
 
 const DOM_SEARCH_BTN = document.querySelector("#searchForm button");
 const DOM_TRENDING_MORE_BTN = document.querySelector("#trendingPreview .trendingPreview-btn");
-
+const DOM_FORM_INPUT = document.querySelector("#searchForm input");
 
 
 

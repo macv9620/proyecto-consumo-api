@@ -1,5 +1,13 @@
+function smoothscroll(){
+  const currentScroll = document.documentElement.scrollTop || document.body.scrollTop;
+  if (currentScroll > 0) {
+       window.requestAnimationFrame(smoothscroll);
+       window.scrollTo (0,currentScroll - (currentScroll/5));
+  }
+};
+
 DOM_SEARCH_BTN.addEventListener("click", ()=>{
-  location.hash = "#search="
+  location.hash = "#search="+DOM_FORM_INPUT.value;
 });
 
 DOM_HEADER_ARROW.addEventListener("click", ()=>{
@@ -9,8 +17,6 @@ DOM_HEADER_ARROW.addEventListener("click", ()=>{
 DOM_TRENDING_MORE_BTN.addEventListener("click", ()=>{
   location.hash = "#trends";
 });
-
-
 
 window.addEventListener("hashchange", navigator, false);
 window.addEventListener("load", navigator, false);
@@ -27,6 +33,7 @@ function navigator() {
   } else {
     homePageView();
   }
+  smoothscroll();
 }
 
 function trendsPageView() {
@@ -63,7 +70,10 @@ function searchPageView() {
     DOM_MOVIE_DETAIL.classList.add("inactive");
     DOM_FOOTER.classList.remove("inactive");
   console.log("Renderizar vista de resultados de búsqueda");
+    const hash = location.hash;
+    const movieName = hash.split("=").pop();
 
+    searchMoviesByName(movieName);
 }
 
 function movieDetailPageView() {
@@ -110,7 +120,7 @@ function categoryPageView() {
 
   getMovieListByGenre(genreId, genreName);
   //Envía el scroll hasta el inicio de la página
-  window.scrollTo(0, 0);
+  //window.scrollTo(0, 0);
 }
 
 function homePageView(){
