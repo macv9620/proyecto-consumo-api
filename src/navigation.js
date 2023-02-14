@@ -23,6 +23,10 @@ DOM_TRENDING_MORE_BTN.addEventListener("click", ()=>{
   location.hash = "#trends";
 });
 
+DOM_HOME_BUTTON.addEventListener("click", ()=>{
+  location.hash = "#home";
+})
+
 window.addEventListener("hashchange", navigator, false);
 window.addEventListener("load", navigator, false);
 
@@ -57,6 +61,7 @@ function trendsPageView() {
     DOM_GENERIC_LIST.classList.remove("inactive");
     DOM_MOVIE_DETAIL.classList.add("inactive");
     DOM_FOOTER.classList.remove("inactive");
+    DOM_HOME_BUTTON.classList.remove("inactive");
     getTrendingMovieList();
 }
 
@@ -75,6 +80,7 @@ function searchPageView() {
     DOM_GENERIC_LIST.classList.remove("inactive");
     DOM_MOVIE_DETAIL.classList.add("inactive");
     DOM_FOOTER.classList.remove("inactive");
+    DOM_HOME_BUTTON.classList.remove("inactive");
   console.log("Renderizar vista de resultados de búsqueda");
     const hash = location.hash;
     const movieName = hash.split("=").pop();
@@ -99,6 +105,7 @@ function movieDetailPageView() {
     DOM_GENERIC_LIST.classList.add("inactive");
     DOM_MOVIE_DETAIL.classList.remove("inactive");
     DOM_FOOTER.classList.add("inactive");
+    DOM_HOME_BUTTON.classList.remove("inactive");
   console.log("Renderizar vista de detalle de películas");
 
   //Parciar el hash
@@ -126,7 +133,7 @@ function categoryPageView() {
     DOM_MOVIE_DETAIL.classList.add("inactive");
     DOM_FOOTER.classList.remove("inactive");
     DOM_HEADER.classList.add("header-container--categoryView");
-
+    DOM_HOME_BUTTON.classList.remove("inactive");
     DOM_HEADER.style.backgroundImage = "none";
     console.log("Renderizar vista de películas por categoria");
 
@@ -157,7 +164,7 @@ function homePageView(){
     DOM_GENERIC_LIST.classList.add("inactive");
     DOM_MOVIE_DETAIL.classList.add("inactive");
     DOM_FOOTER.classList.remove("inactive");
-
+    DOM_HOME_BUTTON.classList.add("inactive");
     console.log("Renderizar vista Home");
     getTrendingPreview();
     getCategoriesListPreview();

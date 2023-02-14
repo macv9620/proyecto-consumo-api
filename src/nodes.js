@@ -4,6 +4,7 @@ const DOM_HEADER_PAGE_TITLE = document.querySelector("#header-page-title");
 const DOM_HEADER_CATEGORY_TITLE = document.querySelector(
     "#header-category-title"
 );
+const DOM_HOME_BUTTON = document.querySelector("#home-button")
 const DOM_SEARCH_FORM = document.querySelector("#searchForm");
 const DOM_TRENDING_PREVIEW = document.querySelector("#trendingPreview");
 const DOM_TRENDING_PREVIEW_MOVIE_LIST = document.querySelector("#trendingPreview-movieList");

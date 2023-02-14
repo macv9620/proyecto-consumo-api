@@ -93,6 +93,17 @@ button {
 
 /* Estilos compartidos */
 
+#home-button{
+  border-radius: 8px 8px 0px 0px;
+  position: fixed;
+  top: 50vh;
+  transform: rotate(90deg);
+  left: -18px;
+  font-size: 18px;
+  z-index: 2;
+
+}
+
 .header-container,
 .trendingPreview-header,
 .categoriesPreview-container {

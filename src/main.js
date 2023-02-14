@@ -46,6 +46,8 @@ function renderMoviesHorizontalContainer(movies, domElementInsert) {
     movieImg.setAttribute("title", `${movie.original_title}`);
     movieContainer.appendChild(movieImg);
     domElementInsert.appendChild(movieContainer);
+    //Se setea el scroll al lado izquierdo para evitar que la posición del render quede en la misma parte de del contenedor anterior
+    domElementInsert.scrollLeft = 0;
     //Se crea evento click para enviar con el hash a la vista de detalle
     movieContainer.addEventListener("click", () => {
       location.hash = `#movie=${movie.id}`;
@@ -66,7 +68,6 @@ function renderCategoriesPreviewList(categories, domElementInsert) {
     categoryTitle.setAttribute("class", "category-title");
     domElementInsert.appendChild(categoryContainer);
     categoryContainer.appendChild(categoryTitle);
-
     categoryTitle.addEventListener("click", () => {
       location.hash = "#category=" + category.id + "-" + category.name;
     });
