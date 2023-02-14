@@ -113,7 +113,15 @@ async function searchMoviesByName(movieName){
   const movies = data.results;
   console.log(status);
   renderMoviesGenericList(movies, DOM_GENERIC_LIST);
+}
 
+async function getTrendingMovieList(){
+  const { data, status } = await api("trending/movie/week?page=1");
+  console.log(status);
+  console.log(data);
+  DOM_HEADER_CATEGORY_TITLE.innerText = "Trending";
+  const movies = await data.results;
+  renderMoviesGenericList(movies, DOM_GENERIC_LIST);
 }
 
 

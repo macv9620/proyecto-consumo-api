@@ -11,7 +11,12 @@ DOM_SEARCH_BTN.addEventListener("click", ()=>{
 });
 
 DOM_HEADER_ARROW.addEventListener("click", ()=>{
-  location.hash = "#home";
+  //location.hash = "#home";
+  //eliminar el valor del input para que no permanezca cuando se vuelve atrás
+  DOM_FORM_INPUT.value = "";
+  //volver atrás al presionar la flecha
+  window.history.back();
+
 });
 
 DOM_TRENDING_MORE_BTN.addEventListener("click", ()=>{
@@ -52,6 +57,7 @@ function trendsPageView() {
     DOM_GENERIC_LIST.classList.remove("inactive");
     DOM_MOVIE_DETAIL.classList.add("inactive");
     DOM_FOOTER.classList.remove("inactive");
+    getTrendingMovieList();
 }
 
 function searchPageView() {
