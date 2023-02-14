@@ -86,7 +86,7 @@ function movieDetailPageView() {
     DOM_HEADER.classList.remove("inactive");
     DOM_HEADER.classList.add("header-container--long");
     //Ahora se debe seleccionar la imagen
-    DOM_HEADER.style.background = "none";
+    //DOM_HEADER.style.backgroundImage = "url('https://image.tmdb.org/t/p/w300/t79ozwWnwekO0ADIzsFP1E5SkvR.jpg')";
     DOM_HEADER.classList.remove("header-container--categoryView");
     DOM_HEADER_ARROW.classList.remove("inactive");
     DOM_HEADER_ARROW.classList.add("header-arrow--white");
@@ -100,6 +100,15 @@ function movieDetailPageView() {
     DOM_MOVIE_DETAIL.classList.remove("inactive");
     DOM_FOOTER.classList.add("inactive");
   console.log("Renderizar vista de detalle de películas");
+
+  //Parciar el hash
+
+  const hash = location.hash;
+  const movieId = hash.split("=").pop();
+  console.log(movieId);
+
+  getMovieDetail(movieId);
+
 }
 
 function categoryPageView() {
@@ -117,6 +126,8 @@ function categoryPageView() {
     DOM_MOVIE_DETAIL.classList.add("inactive");
     DOM_FOOTER.classList.remove("inactive");
     DOM_HEADER.classList.add("header-container--categoryView");
+
+    DOM_HEADER.style.backgroundImage = "none";
     console.log("Renderizar vista de películas por categoria");
 
   //Parciar el hash para dividirlo en ID y nombre de categoria

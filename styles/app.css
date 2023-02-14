@@ -135,18 +135,17 @@ footer {
 
 /*Este modificador de clase se usa para cambiar el layout a la hora de visualizar el detalle de una película"*/
 .header-container--long {
-  background-image: url("https://pics.filmaffinity.com/Deadpool-777527803-large.jpg");
   background: linear-gradient(
       180deg,
       rgba(0, 0, 0, 0.35) 19.27%,
       rgba(0, 0, 0, 0) 29.17%
-    ),
-    url(https://pics.filmaffinity.com/Deadpool-777527803-large.jpg);
+    );
   background-size: cover !important;
   height: 480px;
   position: fixed;
   top: 0;
   width: 100%;
+
 }
 
 /*Este modificador controla el cambio del header en la vista de películas por categoría*/
@@ -168,6 +167,14 @@ footer {
   margin-bottom: 16px;
   cursor: pointer;
   display: inline-block;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  text-align: center;
+  box-shadow: -1px 0px 184px -67px rgba(0,0,0,0.19) inset;
+-webkit-box-shadow: -1px 0px 184px -67px rgba(0,0,0,0.19) inset;
+-moz-box-shadow: -1px 0px 184px -67px rgba(0,0,0,0.19) inset;
+
 }
 
 /*Este modificador camba de color la flecha cuando se está en vista de detalle o vista de categoria*/
@@ -315,6 +322,7 @@ footer {
   /*el position absolute fija la imagen y gracias al z-index*/
   position: absolute;
   background-color: var(--purple-light-1);
+
 }
 
 .movieDetail-title{
@@ -339,6 +347,7 @@ footer {
 
 .movieDetail-description{
   margin: 0 0 24px 0;
+  text-align:justify;
 }
 
 .relatedMovies-container{
