@@ -134,7 +134,7 @@ function categoryPageView() {
     DOM_FOOTER.classList.remove("inactive");
     DOM_HEADER.classList.add("header-container--categoryView");
     DOM_HOME_BUTTON.classList.remove("inactive");
-    DOM_HEADER.style.backgroundImage = "none";
+    DOM_HEADER.style.backgroundImage = "";
     console.log("Renderizar vista de películas por categoria");
 
   //Parciar el hash para dividirlo en ID y nombre de categoria
@@ -151,7 +151,8 @@ function homePageView(){
     DOM_HEADER.classList.remove("inactive");
     DOM_HEADER.classList.remove("header-container--long");
     //Se limpia el background cuando no se esté en la vista de movieDetail
-    DOM_HEADER.style.background ="none";
+    //DOM_HEADER.style.background ="none";
+    DOM_HEADER.style.backgroundImage = "";
     DOM_HEADER.classList.remove("header-container--categoryView");
     DOM_HEADER_ARROW.classList.add("inactive");
     DOM_HEADER_ARROW.classList.remove("header-arrow--white");

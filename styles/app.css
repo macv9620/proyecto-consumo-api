@@ -94,14 +94,19 @@ button {
 /* Estilos compartidos */
 
 #home-button{
-  border-radius: 8px 8px 0px 0px;
+  border-radius: 50%;
   position: fixed;
-  top: 50vh;
-  transform: rotate(90deg);
-  left: -18px;
-  font-size: 18px;
+  top: 90vh;
+  /*transform: rotate(90deg);*/
+  left: 83vw;
+  font-size: 14px;
   z-index: 2;
+  padding: 10px;
 
+}
+
+#home-button span{
+  font-size: 30px;
 }
 
 .header-container,
@@ -163,13 +168,15 @@ footer {
 .header-container--categoryView {
   background: linear-gradient(
     180deg,
-    rgba(238, 204, 117, 0.5) 0%,
-    rgba(238, 204, 117, 0) 72.92%
+    rgb(220, 217, 220) 0%,
+    rgba(224, 223, 220, 0) 100%
   );
+;
 }
 
 .header-title {
   margin-bottom: 16px;
+  
 }
 
 .header-arrow {
@@ -182,9 +189,14 @@ footer {
   width: 50px;
   height: 50px;
   text-align: center;
-  box-shadow: -1px 0px 184px -67px rgba(0,0,0,0.19) inset;
--webkit-box-shadow: -1px 0px 184px -67px rgba(0,0,0,0.19) inset;
--moz-box-shadow: -1px 0px 184px -67px rgba(0,0,0,0.19) inset;
+  background-color: var(--purple-dark-1);
+position: fixed;
+z-index: 3;
+top: 90vh;
+/*transform: rotate(90deg);*/
+left: 2vw;
+color: white;
+
 
 }
 
