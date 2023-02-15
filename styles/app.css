@@ -96,7 +96,7 @@ button {
 #home-button{
   border-radius: 50%;
   position: fixed;
-  top: 84vh;
+  bottom: 47px;
   /*transform: rotate(90deg);*/
   left: 83vw;
   font-size: 14px;
@@ -192,7 +192,7 @@ footer {
   background-color: var(--purple-dark-1);
 position: fixed;
 z-index: 3;
-top: 84vh;
+bottom: 31px;
 /*transform: rotate(90deg);*/
 left: 2vw;
 color: white;
