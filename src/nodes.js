@@ -17,6 +17,8 @@ const DOM_SEARCH_BTN = document.querySelector("#searchForm button");
 const DOM_TRENDING_MORE_BTN = document.querySelector("#trendingPreview .trendingPreview-btn");
 const DOM_FORM_INPUT = document.querySelector("#searchForm input");
 
+const DOM_GET_MORE_BTN = document.querySelector("#get-more-btn");
+
 //Detalle de película
 const DOM_DETAIL_MOVIE_TITLE = document.querySelector("#movieDetail .movieDetail-title");
 const DOM_MOVIE_SCORE = document.querySelector("#movieDetail .movieDetail-score");

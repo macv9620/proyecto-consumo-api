@@ -50,6 +50,8 @@ function trendsPageView() {
     DOM_HEADER.classList.remove("inactive");
     DOM_HEADER.classList.remove("header-container--long");
     DOM_HEADER.classList.remove("header-container--categoryView");
+    DOM_HEADER.classList.remove("header-container--title-fixed");
+    DOM_GENERIC_LIST.classList.remove("genericList-container--fixed-title");
     DOM_HEADER_ARROW.classList.remove("inactive");
     DOM_HEADER_ARROW.classList.remove("header-arrow--white");
     DOM_HEADER_PAGE_TITLE.classList.add("inactive");
@@ -62,6 +64,7 @@ function trendsPageView() {
     DOM_MOVIE_DETAIL.classList.add("inactive");
     DOM_FOOTER.classList.remove("inactive");
     DOM_HOME_BUTTON.classList.remove("inactive");
+    DOM_GET_MORE_BTN.classList.remove("inactive");
     getTrendingMovieList();
 }
 
@@ -69,6 +72,8 @@ function searchPageView() {
     DOM_HEADER.classList.remove("inactive");
     DOM_HEADER.classList.remove("header-container--long");
     DOM_HEADER.classList.remove("header-container--categoryView");
+    DOM_HEADER.classList.remove("header-container--title-fixed");
+    DOM_GENERIC_LIST.classList.remove("genericList-container--fixed-title");
     DOM_HEADER_ARROW.classList.remove("inactive");
     DOM_HEADER_ARROW.classList.remove("header-arrow--white");
     DOM_HEADER_PAGE_TITLE.classList.add("inactive");
@@ -81,6 +86,7 @@ function searchPageView() {
     DOM_MOVIE_DETAIL.classList.add("inactive");
     DOM_FOOTER.classList.remove("inactive");
     DOM_HOME_BUTTON.classList.remove("inactive");
+    DOM_GET_MORE_BTN.classList.remove("inactive");
   console.log("Renderizar vista de resultados de búsqueda");
     const hash = location.hash;
     const movieName = hash.split("=").pop();
@@ -94,6 +100,8 @@ function movieDetailPageView() {
     //Ahora se debe seleccionar la imagen
     //DOM_HEADER.style.backgroundImage = "url('https://image.tmdb.org/t/p/w300/t79ozwWnwekO0ADIzsFP1E5SkvR.jpg')";
     DOM_HEADER.classList.remove("header-container--categoryView");
+    DOM_HEADER.classList.remove("header-container--title-fixed");
+    DOM_GENERIC_LIST.classList.remove("genericList-container--fixed-title");
     DOM_HEADER_ARROW.classList.remove("inactive");
     DOM_HEADER_ARROW.classList.add("header-arrow--white");
     DOM_HEADER_PAGE_TITLE.classList.add("inactive");
@@ -106,6 +114,7 @@ function movieDetailPageView() {
     DOM_MOVIE_DETAIL.classList.remove("inactive");
     DOM_FOOTER.classList.add("inactive");
     DOM_HOME_BUTTON.classList.remove("inactive");
+    DOM_GET_MORE_BTN.classList.add("inactive");
   console.log("Renderizar vista de detalle de películas");
 
   //Parciar el hash
@@ -121,6 +130,8 @@ function movieDetailPageView() {
 function categoryPageView() {
     DOM_HEADER.classList.remove("inactive");
     DOM_HEADER.classList.remove("header-container--long");
+    DOM_HEADER.classList.add("header-container--title-fixed");
+    DOM_GENERIC_LIST.classList.add("genericList-container--fixed-title");
     DOM_HEADER_ARROW.classList.remove("inactive");
     DOM_HEADER_ARROW.classList.remove("header-arrow--white");
     DOM_HEADER_PAGE_TITLE.classList.add("inactive");
@@ -135,6 +146,8 @@ function categoryPageView() {
     DOM_HEADER.classList.add("header-container--categoryView");
     DOM_HOME_BUTTON.classList.remove("inactive");
     DOM_HEADER.style.backgroundImage = "";
+    DOM_GET_MORE_BTN.classList.remove("inactive");
+
     console.log("Renderizar vista de películas por categoria");
 
   //Parciar el hash para dividirlo en ID y nombre de categoria
@@ -150,6 +163,9 @@ function categoryPageView() {
 function homePageView(){
     DOM_HEADER.classList.remove("inactive");
     DOM_HEADER.classList.remove("header-container--long");
+    DOM_HEADER.classList.remove("header-container--title-fixed");
+    DOM_GENERIC_LIST.classList.remove("genericList-container--fixed-title");
+
     //Se limpia el background cuando no se esté en la vista de movieDetail
     //DOM_HEADER.style.background ="none";
     DOM_HEADER.style.backgroundImage = "";
@@ -166,6 +182,8 @@ function homePageView(){
     DOM_MOVIE_DETAIL.classList.add("inactive");
     DOM_FOOTER.classList.remove("inactive");
     DOM_HOME_BUTTON.classList.add("inactive");
+    DOM_GET_MORE_BTN.classList.add("inactive");
+
     console.log("Renderizar vista Home");
     getTrendingPreview();
     getCategoriesListPreview();
