@@ -1,4 +1,4 @@
-const API_KEY = "c27f4ca65812a399a89873d607d04fcb"
+const API_KEY = "c27f4ca65812a399a89873d607d04fcb";
 const BASE_URL_IMAGE = "https://image.tmdb.org/t/p/w500";
 const api = axios.create({
   baseURL: "https://api.themoviedb.org/3/",
@@ -27,7 +27,18 @@ function renderMoviesGenericList(movies, domElementInsert) {
     domElementInsert.appendChild(movieContainer);
     movieContainer.appendChild(imgTag);
 
-    movieContainer.addEventListener("click", () => {
+    //Creación de botón like
+
+    const likeButton = document.createElement("button");
+    likeButton.setAttribute("class", "like-button");
+    likeButton.innerHTML = `<span class="material-symbols-outlined">favorite</span>`;
+    movieContainer.appendChild(likeButton);
+    likeButton.addEventListener("click", ()=> console.log("Diste Like"));
+
+
+    //-----------------------------------
+
+    imgTag.addEventListener("click", () => {
       location.hash = `#movie=${movie.id}`;
     });
   });
@@ -45,11 +56,22 @@ function renderMoviesHorizontalContainer(movies, domElementInsert) {
     movieImg.setAttribute("alt", `${movie.original_title}`);
     movieImg.setAttribute("title", `${movie.original_title}`);
     movieContainer.appendChild(movieImg);
+    
+    //Creación de botón like
+    
+    const likeButton = document.createElement("button");
+    likeButton.setAttribute("class", "like-button");
+    likeButton.innerHTML = `<span class="material-symbols-outlined">favorite</span>`;
+    movieContainer.appendChild(likeButton);
+    likeButton.addEventListener("click", ()=> console.log("Diste Like"));
+    
     domElementInsert.appendChild(movieContainer);
+    //-----------------------
+    
     //Se setea el scroll al lado izquierdo para evitar que la posición del render quede en la misma parte de del contenedor anterior
     domElementInsert.scrollLeft = 0;
     //Se crea evento click para enviar con el hash a la vista de detalle
-    movieContainer.addEventListener("click", () => {
+    movieImg.addEventListener("click", () => {
       location.hash = `#movie=${movie.id}`;
     });
   });

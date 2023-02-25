@@ -174,6 +174,26 @@ footer {
   padding-top: 20px;
 }
 
+.movie-container .like-button{
+  background: linear-gradient(
+    180deg,
+    rgba(214, 210, 210, 0.35) 100%,
+    rgba(226, 223, 223, 0) 100%
+  );
+  color: white;
+  border-radius: 50%;
+  width: 25px;
+  height: 25px;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  position: relative;
+  right: 25px;
+
+  z-index: 1;
+}
+
+
 
 
 /*Este modificador de clase se usa para cambiar el layout a la hora de visualizar el detalle de una película"*/
@@ -282,8 +302,9 @@ color: white;
 }
 
 .trendingPreview-movieList .movie-container {
-  display: inline-block;
-  margin-right: 8px;
+  display: inline-flex;
+  margin-right: 0px;
+  gap: 0px;
 }
 
 .trendingPreview-movieList .movie-container .movie-img {
@@ -361,12 +382,13 @@ color: white;
 
 
 .genericList-container .movie-container{
-  display: inline-block;
+  display: flex;
   width: 47.5%;
 }
 
 .genericList-container .movie-img {
   width: 100%;
+
 }
 
 /* Movie Detail */
@@ -427,8 +449,8 @@ color: white;
 }
 
 .relatedMovies-scrollContainer .movie-container {
-  display: inline-block;
-  margin-right: 8px;
+  display: inline-flex;
+  margin-right: 0px;
 }
 
 .relatedMovies-scrollContainer .movie-img {
