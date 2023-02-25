@@ -114,7 +114,7 @@ button {
   /*transform: rotate(90deg);*/
   left: 83vw;
   font-size: 14px;
-  z-index: 2;
+  z-index: 5;
   padding: 10px;
 
 }
@@ -174,12 +174,41 @@ footer {
   padding-top: 20px;
 }
 
-.movie-container .like-button{
+.like-button--gradient{
   background: linear-gradient(
     180deg,
     rgba(214, 210, 210, 0.35) 100%,
     rgba(226, 223, 223, 0) 100%
   );
+}
+
+.like-button{
+  background: linear-gradient(
+    180deg,
+    rgba(214, 210, 210, 0.35) 100%,
+    rgba(226, 223, 223, 0) 100%
+  );
+  color: rgb(232, 223, 223);
+  border-radius: 50%;
+  width: 25px;
+  height: 25px;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  position: relative;
+  right: 25px;
+
+  z-index: 4;
+}
+
+#like-button{
+  position: fixed;
+  top: 30px;
+  right: 30px;
+}
+
+.like-button--clicked{
+  background: rgb(251, 4, 4);
   color: white;
   border-radius: 50%;
   width: 25px;
@@ -190,10 +219,22 @@ footer {
   position: relative;
   right: 25px;
 
-  z-index: 1;
+  z-index: 4;
 }
 
+.button-see-liked-movies{
+  display: flex;
+  justify-content: center;
+}
 
+.seeLikedMovies{
+  
+  border-radius: 8px;
+  height: 50px;
+  width: 90px;
+  box-shadow: rgba(0, 0, 0, 0.56) 0px 22px 70px 4px;
+
+}
 
 
 /*Este modificador de clase se usa para cambiar el layout a la hora de visualizar el detalle de una película"*/
@@ -405,19 +446,21 @@ color: white;
 
 }
 
+
 .movieDetail-title{
   display: inline-block;
-  width: 80%;
   margin: 0 0 16px 0;
+  width: 85%;
   padding: 0;
 }
 
 .movieDetail-score{
   display: inline-block;
-  text-align: right;
-  width: 18%;
+  width: 10%;
   font-weight: var(--font-weight-title2);
 }
+
+
 /*Se usa before para insertar un elemento antes del movieDetail-score*/
 .movieDetail-score::before {
   content: '★';
@@ -471,7 +514,33 @@ color: white;
   display: flex;
   justify-content: center;
   align-items: center;
+
 }
+
+.sort{
+  display: flex;
+  justify-content: center ;
+  color:#2a0646;
+  font-weight:900;
+  font-size: 13px;
+  gap: 10px;
+}
+
+.sort-list{
+  background-color: var(--purple-dark-2);
+  color: white;
+  border: none;
+  font-size: 12px;
+  padding-left: 16px;
+  border-radius: 10px;
+}
+
+.sort-list option::selection{
+  font-weight: 600;
+  background-color: red;
+}
+
+
 
 /*Navigation*/
 .inactive {

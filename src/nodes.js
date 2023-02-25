@@ -25,6 +25,14 @@ const DOM_MOVIE_SCORE = document.querySelector("#movieDetail .movieDetail-score"
 const DOM_MOVIE_OVERVIEW = document.querySelector("#movieDetail .movieDetail-description");
 const DOM_MOVIE_DETAIL_GENRES_LIST = document.querySelector("#movieDetail .categories-list");
 const DOM_SIMILAR_MOVIES_CONTAINER = document.querySelector(".relatedMovies-container .relatedMovies-scrollContainer");
+const DOM_SEE_LIKED_MOVIES_BTN = document.querySelector("#seeLikedMovies");
+
+const DOM_SORT_BY_OPTIONS = document.querySelectorAll(".sort-list");
+
+const DOM_SORT_SECTION = document.querySelector(".sort");
+
+
+
 
 
 

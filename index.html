@@ -13,27 +13,33 @@
     />
 
     <link rel="stylesheet" href="./styles/app.css" />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0"
+    />
     <title>WorldMovies</title>
   </head>
 
   <body>
-
     <button type="button" id="home-button">
-      <span class="material-symbols-outlined">
-        home
-        </span>
+      <span class="material-symbols-outlined"> home </span>
     </button>
     <!--headerContainerLong (modificador) va a permitir cambiar la vista al detalle de la película al activar y desactivar en conjunto con otros formatos como el de activación e inactivación-->
-    <span id="header-arrow" class="header-arrow">  &lt;</span>
+    <span id="header-arrow" class="header-arrow"> &lt;</span>
 
     <header id="header" class="header-container">
       <!--&lt; inserta una flecha que se usará para retroceder-->
       <!--El modificador headerarrowwhite cambia el color para las diferentes vistas de la flecha de navegación-->
       <!--Título vista inicial-->
-      <h1 id="header-page-title" class="header-title ">WorldMovies</h1>
+      <h1 id="header-page-title" class="header-title">WorldMovies</h1>
       <!--Título vista de categoría-->
       <h1 id="header-category-title" class="header-title">Acción</h1>
       <!--Formulario de búsqueda-->
@@ -42,6 +48,16 @@
         <button type="button">🔍</button>
       </form>
     </header>
+
+    <!--Se crea lista desplegable de ordenamiento-->
+    <section class="sort" id="sort">
+      <label for="sortBy">Sort by:</label>
+      <select name="" id="sortListOptions" class="sort-list">
+        <option>Popularity</option>
+        <option>Release Date</option>
+        <option>Like Date</option>
+      </select>
+    </section>
 
     <!--Sección para previsualizar algunas películas tendencia-->
     <section id="trendingPreview" class="trendingPreview-container">
@@ -79,19 +95,16 @@
     </section>
 
     <!--Sección para previsualizar los nombres de las categorías mas no las películas como tal-->
-    <section id="categoriesPreview" class="categoriesPreview-container ">
+    <section id="categoriesPreview" class="categoriesPreview-container">
       <h2 class="categoriesPreview-title">Categories</h2>
       <!--Nombres de las categorías-->
-      
 
       <article class="categoriesPreview-list">
-              <!--
+        <!--
         <div class="category-container">
           <h3 id="id28" class="category-title">Romance</h3>
         </div>
-      -->
-
-      </article>
+      --></article>
     </section>
 
     <!--Sección para visualizar un listado general de películas-->
@@ -121,16 +134,21 @@
         />
       </div>
       -->
-      
-
     </section>
 
     <!--Sección o vista para el detalle de la película-->
     <section id="movieDetail" class="movieDetail-container">
+      <!--Botón like
+              <button type="button" class="like-button" id="like-button">
+                <span class="material-symbols-outlined">favorite</span>
+              </button>-->
       <!--Título de la película-->
+
       <h1 class="movieDetail-title">Deadpool</h1>
+
       <!--Calificación-->
       <span class="movieDetail-score">7.6</span>
+
       <!--Descripción-->
       <p class="movieDetail-description">
         Wisecracking mercenary Deadpool battles the evil and powerful Cable and
@@ -206,19 +224,22 @@
     </section>
 
     <div class="get-more-container">
-    <button type="button" id="get-more-btn">
-      <span class="material-symbols-outlined">
-        expand_more
-        </span>
-    </button>
-  </div>
+      <button type="button" id="get-more-btn">
+        <span class="material-symbols-outlined"> expand_more </span>
+      </button>
+    </div>
 
-    <footer class="footer">Made by macv9620</footer>
+    <div class="button-see-liked-movies">
+      <button id="seeLikedMovies" class="seeLikedMovies" type="button">
+        See liked Movies
+      </button>
+    </div>
+
+    <footer class="footer">Made by MateoVasco</footer>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <script src="./src/api_key.js" ></script>
-    <script src="./src/main.js" ></script>
+    <script src="./src/api_key.js"></script>
+    <script src="./src/main.js"></script>
     <script src="./src/nodes.js"></script>
     <script src="./src/navigation.js"></script>
-
   </body>
 </html>
