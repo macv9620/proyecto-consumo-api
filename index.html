@@ -29,11 +29,11 @@
   </head>
 
   <body>
-    <button type="button" id="home-button">
+    <button type="button" id="home-button" class="inactive">
       <span class="material-symbols-outlined"> home </span>
     </button>
     <!--headerContainerLong (modificador) va a permitir cambiar la vista al detalle de la película al activar y desactivar en conjunto con otros formatos como el de activación e inactivación-->
-    <span id="header-arrow" class="header-arrow"> &lt;</span>
+    <span id="header-arrow" class="header-arrow inactive"> &lt;</span>
 
     <header id="header" class="header-container">
       <!--&lt; inserta una flecha que se usará para retroceder-->
@@ -41,7 +41,7 @@
       <!--Título vista inicial-->
       <h1 id="header-page-title" class="header-title">WorldMovies</h1>
       <!--Título vista de categoría-->
-      <h1 id="header-category-title" class="header-title">Acción</h1>
+      <h1 id="header-category-title" class="header-title inactive">Acción</h1>
       <!--Formulario de búsqueda-->
       <form id="searchForm" class="header-searchForm">
         <input type="text" placeholder="Search Movie" />
@@ -50,7 +50,7 @@
     </header>
 
     <!--Se crea lista desplegable de ordenamiento-->
-    <section class="sort" id="sort">
+    <section class="sort inactive" id="sort">
       <label for="sortBy">Sort by:</label>
       <select name="" id="sortListOptions" class="sort-list">
         <option>Popularity</option>
@@ -66,6 +66,10 @@
         <button class="trendingPreview-btn">More</button>
       </div>
       <article id="trendingPreview-movieList" class="trendingPreview-movieList">
+        <div class="movie-container movie-container--loading"></div>
+        <div class="movie-container movie-container--loading"></div>
+        <div class="movie-container movie-container--loading"></div>
+
         <!-- ESTA PARTE SE INSERTARÁ CON JS
         <div class="movie-container">
           <img
@@ -100,6 +104,13 @@
       <!--Nombres de las categorías-->
 
       <article class="categoriesPreview-list">
+
+        <div class="category-container category-container--loading"></div>
+        <div class="category-container category-container--loading"></div>
+        <div class="category-container category-container--loading"></div>
+        <div class="category-container category-container--loading"></div>
+
+
         <!--
         <div class="category-container">
           <h3 id="id28" class="category-title">Romance</h3>
@@ -108,7 +119,18 @@
     </section>
 
     <!--Sección para visualizar un listado general de películas-->
-    <section id="genericList" class="genericList-container">
+    <section id="genericList" class="genericList-container inactive">
+
+      <div class="movie-container-generic--loading"></div>
+      <div class="movie-container-generic--loading"></div>
+      <div class="movie-container-generic--loading"></div>
+      <div class="movie-container-generic--loading"></div>
+      <div class="movie-container-generic--loading"></div>
+      <div class="movie-container-generic--loading"></div>
+      <div class="movie-container-generic--loading"></div>
+      <div class="movie-container-generic--loading"></div>
+
+
       <!--
       <div class="movie-container">
         <img
@@ -137,26 +159,31 @@
     </section>
 
     <!--Sección o vista para el detalle de la película-->
-    <section id="movieDetail" class="movieDetail-container">
+    <section id="movieDetail" class="movieDetail-container inactive">
+      <div class = "spin"></div>
       <!--Botón like
               <button type="button" class="like-button" id="like-button">
                 <span class="material-symbols-outlined">favorite</span>
               </button>-->
       <!--Título de la película-->
-
+      <!--
       <h1 class="movieDetail-title">Deadpool</h1>
 
-      <!--Calificación-->
       <span class="movieDetail-score">7.6</span>
 
-      <!--Descripción-->
       <p class="movieDetail-description">
         Wisecracking mercenary Deadpool battles the evil and powerful Cable and
         other bad guys to save a boy's life.
       </p>
+      -->
 
       <!--Categorías que pueden asociarse a la película-->
       <article class="categories-list">
+
+        <div class="category-container category-container--loading"></div>
+        <div class="category-container category-container--loading"></div>
+        <div class="category-container category-container--loading"></div>
+        <div class="category-container category-container--loading"></div>
         <!--
         <div class="category-container">
           <h3 id="id28" class="category-title">Romance</h3>
@@ -178,6 +205,10 @@
         <h2 class="relatedMovies-title">Similar Movies</h2>
 
         <div class="relatedMovies-scrollContainer">
+
+          <div class="movie-container movie-container--loading-similar"></div>
+          <div class="movie-container movie-container--loading-similar"></div>
+          <div class="movie-container movie-container--loading-similar"></div>
           <!--
           <div class="movie-container">
             <img
@@ -224,7 +255,7 @@
     </section>
 
     <div class="get-more-container">
-      <button type="button" id="get-more-btn">
+      <button type="button" id="get-more-btn" class="inactive">
         <span class="material-symbols-outlined"> expand_more </span>
       </button>
     </div>
@@ -238,8 +269,8 @@
     <footer class="footer">Made by MateoVasco</footer>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="./src/api_key.js"></script>
-    <script src="./src/main.js"></script>
     <script src="./src/nodes.js"></script>
+    <script src="./src/main.js"></script>
     <script src="./src/navigation.js"></script>
   </body>
 </html>

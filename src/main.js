@@ -15,6 +15,8 @@ let moviesLikedList = {};
 let DELETE;
 let DELETE2;
 
+let isAMovieDetailRendered = false;
+
 //Funciones de renderizacion recurrente
 //Renderiza un listado vertical de películas
 function renderMoviesGenericList(movies, domElementInsert) {
@@ -58,6 +60,9 @@ function renderMoviesGenericList(movies, domElementInsert) {
 function renderMoviesHorizontalContainer(movies, domElementInsert) {
   domElementInsert.innerHTML = "";
   movies.forEach((movie) => {
+    const likeButton = document.createElement("button");
+    likeButton.setAttribute("class", "like-button");
+    likeButton.innerHTML = `<span class="material-symbols-outlined">favorite</span>`;
     const movieContainer = document.createElement("div");
     movieContainer.classList.add("movie-container");
     const movieImg = document.createElement("img");
@@ -69,9 +74,6 @@ function renderMoviesHorizontalContainer(movies, domElementInsert) {
 
     //Creación de botón like
 
-    const likeButton = document.createElement("button");
-    likeButton.setAttribute("class", "like-button");
-    likeButton.innerHTML = `<span class="material-symbols-outlined">favorite</span>`;
     movieContainer.appendChild(likeButton);
     likeButton.addEventListener("click", () => likeMovie(movie, likeButton));
 
@@ -113,11 +115,46 @@ function renderCategoriesPreviewList(categories, domElementInsert) {
 
 //Renderiza vista detallada de la película
 async function renderMovieDetail(movie) {
-  DOM_HEADER.style.backgroundImage = `url('${BASE_URL_IMAGE}${movie.poster_path}')`;
-  DOM_DETAIL_MOVIE_TITLE.innerText = movie.original_title;
-  DOM_MOVIE_SCORE.innerText = movie.vote_average.toFixed(1);
-  DOM_MOVIE_OVERVIEW.innerText = movie.overview;
+  //Se crea bandera para validar si la película ya fue renderizada, en caso de que no crea todos los elementos de la vista y los reemplaza, en caso de que sí entonces sólo modifica el contenido, esto se hace para evitar crear y crear nuevos nodos y elementos cada vez que se renderiza la página de detalle
+  if (!isAMovieDetailRendered) {
+    console.log("INGRESÉ");
+    const DOM_DETAIL_MOVIE_TITLE = document.createElement("h1");
+    DOM_DETAIL_MOVIE_TITLE.setAttribute("class", "movieDetail-title");
 
+    const DOM_MOVIE_SCORE = document.createElement("span");
+    DOM_MOVIE_SCORE.setAttribute("class", "movieDetail-score");
+
+    const DOM_MOVIE_OVERVIEW = document.createElement("p");
+    DOM_MOVIE_OVERVIEW.setAttribute("class", "movieDetail-description");
+
+    DOM_MOVIE_DETAIL.appendChild(DOM_DETAIL_MOVIE_TITLE);
+    DOM_MOVIE_DETAIL.appendChild(DOM_MOVIE_SCORE);
+    DOM_MOVIE_DETAIL.appendChild(DOM_MOVIE_OVERVIEW);
+
+    DOM_MOVIE_DETAIL.insertBefore(DOM_DETAIL_MOVIE_TITLE, DOM_CATEGORIES_LIST);
+    DOM_MOVIE_DETAIL.insertBefore(DOM_MOVIE_SCORE, DOM_CATEGORIES_LIST);
+    DOM_MOVIE_DETAIL.insertBefore(DOM_MOVIE_OVERVIEW, DOM_CATEGORIES_LIST);
+    isAMovieDetailRendered = true;
+    DOM_HEADER.style.backgroundImage = `url('${BASE_URL_IMAGE}${movie.poster_path}')`;
+    DOM_DETAIL_MOVIE_TITLE.innerText = movie.original_title;
+    DOM_MOVIE_SCORE.innerText = movie.vote_average.toFixed(1);
+    DOM_MOVIE_OVERVIEW.innerText = movie.overview;
+  } else {
+    const DOM_DETAIL_MOVIE_TITLE = document.querySelector(
+      "#movieDetail .movieDetail-title"
+    );
+    const DOM_MOVIE_SCORE = document.querySelector(
+      "#movieDetail .movieDetail-score"
+    );
+    const DOM_MOVIE_OVERVIEW = document.querySelector(
+      "#movieDetail .movieDetail-description"
+    );
+
+    DOM_HEADER.style.backgroundImage = `url('${BASE_URL_IMAGE}${movie.poster_path}')`;
+    DOM_DETAIL_MOVIE_TITLE.innerText = movie.original_title;
+    DOM_MOVIE_SCORE.innerText = movie.vote_average.toFixed(1);
+    DOM_MOVIE_OVERVIEW.innerText = movie.overview;
+  }
   //Actualización del listener de acuerdo con película
 
   //SE PRESENTÓ UN ERROR A RAIZ DE RENDERIZAR O CREAR EN CADA ITERACIÓN EL MISMO BOTÓN, POR ESO ANTES DE CREAR EL BOTÓN SE CONTROLA QUE NO EXISTA YA UN BOTÓN, SI NO EXISTE SE CREA, Y SI EXISTE SE BORRA EL EVENTO ANTERIOR Y SE AGREGA EL ACTUAL.
@@ -253,8 +290,14 @@ async function getLikedMoviesList(sortParam) {
 
 //Consume API de consulta de 1 película y renderiza el detalle
 async function getMovieDetail(movieId) {
+  DOM_MOVIE_DETAIL_GENRES_LIST.innerHTML = `
+  <div class="category-container category-container--loading"></div>
+  <div class="category-container category-container--loading"></div>
+  <div class="category-container category-container--loading"></div>
+  <div class="category-container category-container--loading"></div>
+  `;
   const { data, status } = await api(`movie/${movieId}`);
-
+  console.log(DOM_MOVIE_DETAIL);
   renderMovieDetail(data);
 }
 
