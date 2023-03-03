@@ -23,17 +23,18 @@ function callback(entries, observer) {
   console.log(entries, observer);
   entries.forEach((entry) => {
     //Con este condicional sólo se renderiza si hay interseccióncon el VP
+    //entry.isIntersecting
     if (entry.isIntersecting) {
       console.log(entry);
       //Se captura URL almacenada en atributo del dataSet
       const auxSrc = entry.target.dataset.src;
       console.log(auxSrc);
       //Se setea URL en atributo scr para el renderizado
+
       entry.target.src = auxSrc;
     }
   });
 }
-
 
 //Funciones de renderizacion recurrente
 //Renderiza un listado vertical de películas
@@ -45,15 +46,22 @@ function renderMoviesGenericList(movies, domElementInsert) {
     movieContainer.setAttribute("class", "movie-container");
     const imgTag = document.createElement("img");
     imgTag.setAttribute("class", "movie-img");
-    imgTag.setAttribute("src", BASE_URL_IMAGE + movie.poster_path);
+    
+    if(movie.poster_path){
+      imgTag.setAttribute("data-src", BASE_URL_IMAGE + movie.poster_path);
+    } else{
+      //Si no hay imagen disponible se agrega un placehold de una API pública para indicar el nombre de la película
+      imgTag.setAttribute("data-src", `https://placehold.co/155x232/660000/white?text=${movie.title}`);
+    }
+    
     imgTag.setAttribute("title", movie.original_title);
     imgTag.setAttribute("alt", movie.original_title);
-
+    
     domElementInsert.appendChild(movieContainer);
     movieContainer.appendChild(imgTag);
-
+    
     //Creación de botón like
-
+    
     const likeButton = document.createElement("button");
     likeButton.setAttribute("class", "like-button");
     movieContainer.appendChild(likeButton);
@@ -62,12 +70,13 @@ function renderMoviesGenericList(movies, domElementInsert) {
     spanButton.appendChild(likeIcon);
     likeButton.appendChild(spanButton);
     spanButton.setAttribute("class", "material-symbols-outlined");
-
+    
     likeButton.addEventListener("click", () => likeMovie(movie, likeButton));
-
+    
     renderLikedIcons(movie.id, likeButton);
     //-----------------------------------
-
+    observer.observe(imgTag);
+    
     imgTag.addEventListener("click", () => {
       location.hash = `#movie=${movie.id}`;
     });
@@ -85,8 +94,17 @@ function renderMoviesHorizontalContainer(movies, domElementInsert) {
     movieContainer.classList.add("movie-container");
     const movieImg = document.createElement("img");
     movieImg.classList.add("movie-img");
+
+    if(movie.poster_path){
+      movieImg.setAttribute("data-src", BASE_URL_IMAGE + movie.poster_path);
+    } else{
+      movieImg.setAttribute("data-src", `https://placehold.co/155x232/660000/white?text=${movie.title}`);
+    }
+
+
     //Se almacena URL en atributo "auxiliar data-scr" con el objetivo de controlar cuando se seteará la URL en el src de acuerdo con la intersección y así implementar el lazy loading.
-    movieImg.setAttribute("data-src", `${BASE_URL_IMAGE}${movie.poster_path}`);
+    
+    //movieImg.setAttribute("data-src", `${BASE_URL_IMAGE}${movie.poster_path}`);
     movieImg.setAttribute("alt", `${movie.original_title}`);
     movieImg.setAttribute("title", `${movie.original_title}`);
     movieContainer.appendChild(movieImg);
@@ -156,6 +174,8 @@ async function renderMovieDetail(movie) {
     DOM_MOVIE_DETAIL.insertBefore(DOM_MOVIE_SCORE, DOM_CATEGORIES_LIST);
     DOM_MOVIE_DETAIL.insertBefore(DOM_MOVIE_OVERVIEW, DOM_CATEGORIES_LIST);
     isAMovieDetailRendered = true;
+
+
     DOM_HEADER.style.backgroundImage = `url('${BASE_URL_IMAGE}${movie.poster_path}')`;
     DOM_DETAIL_MOVIE_TITLE.innerText = movie.original_title;
     DOM_MOVIE_SCORE.innerText = movie.vote_average.toFixed(1);
