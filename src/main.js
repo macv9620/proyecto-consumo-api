@@ -17,6 +17,24 @@ let DELETE2;
 
 let isAMovieDetailRendered = false;
 
+const observer = new IntersectionObserver(callback);
+
+function callback(entries, observer) {
+  console.log(entries, observer);
+  entries.forEach((entry) => {
+    //Con este condicional sólo se renderiza si hay interseccióncon el VP
+    if (entry.isIntersecting) {
+      console.log(entry);
+      //Se captura URL almacenada en atributo del dataSet
+      const auxSrc = entry.target.dataset.src;
+      console.log(auxSrc);
+      //Se setea URL en atributo scr para el renderizado
+      entry.target.src = auxSrc;
+    }
+  });
+}
+
+
 //Funciones de renderizacion recurrente
 //Renderiza un listado vertical de películas
 function renderMoviesGenericList(movies, domElementInsert) {
@@ -67,10 +85,13 @@ function renderMoviesHorizontalContainer(movies, domElementInsert) {
     movieContainer.classList.add("movie-container");
     const movieImg = document.createElement("img");
     movieImg.classList.add("movie-img");
-    movieImg.setAttribute("src", `${BASE_URL_IMAGE}${movie.poster_path}`);
+    //Se almacena URL en atributo "auxiliar data-scr" con el objetivo de controlar cuando se seteará la URL en el src de acuerdo con la intersección y así implementar el lazy loading.
+    movieImg.setAttribute("data-src", `${BASE_URL_IMAGE}${movie.poster_path}`);
     movieImg.setAttribute("alt", `${movie.original_title}`);
     movieImg.setAttribute("title", `${movie.original_title}`);
     movieContainer.appendChild(movieImg);
+
+    observer.observe(movieImg);
 
     //Creación de botón like
 
