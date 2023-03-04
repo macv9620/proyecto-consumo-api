@@ -26,7 +26,7 @@ function callback(entries, observer) {
     //Con este condicional sólo se renderiza si hay interseccióncon el VP
     //entry.isIntersecting
     if (entry.isIntersecting) {
-      console.log(entry);
+      //console.log(entry);
       //Se captura URL almacenada en atributo del dataSet
       const auxSrc = entry.target.dataset.src;
       //console.log(auxSrc);
@@ -270,69 +270,83 @@ async function getCategoriesListPreview() {
 
 //Consume API de descubrir y renderiza listado vertical de películas de acuerdo con el género
 async function getMovieListByGenre(genreId, categoryName, pag = 1) {
-
+  window.removeEventListener("scroll", DELETE3);
   const { data, status } = await api(
     `discover/movie?with_genres=${genreId}&page=${pag}`
   );
   DOM_HEADER_CATEGORY_TITLE.innerText = categoryName;
-  
+
   const movieList = await data.results;
-  
-  //Remueve el evento del botón Get More para no acumularlo
-  DOM_GET_MORE_BTN.removeEventListener("click", DELETE3);
-  DELETE3 = function () {
-    getMovieListByGenre(genreId, categoryName, pag);
-  };
 
-  DOM_GET_MORE_BTN.addEventListener("click", DELETE3);
-
-  if(pag === 1){
-    renderMoviesGenericList(movieList, DOM_GENERIC_LIST)
-  }else{
-    renderMoviesGenericList(movieList, DOM_GENERIC_LIST,false)
+  if (pag === 1) {
+    renderMoviesGenericList(movieList, DOM_GENERIC_LIST);
+  } else {
+    renderMoviesGenericList(movieList, DOM_GENERIC_LIST, false);
   }
   pag++;
+
+  DELETE3 = function () {
+    //Cada vez que el scroll llame la función se debe revisar si se está cerca de llegar al final para ver si carga el siguiente llamado a la API para renderizar más información
+    //Se usa desestructuración para capturar los valores de las variables
+    const { clientHeight, scrollTop, scrollHeight } = document.documentElement;
+
+    //Se valida si el usuario se encuenta en el final del html
+    const isScrollInFooter = scrollTop + clientHeight >= scrollHeight - 20;
+
+    if (isScrollInFooter) {
+      getMovieListByGenre(genreId, categoryName, pag);
+      console.log(pag);
+    }
+  };
+  window.addEventListener("scroll", DELETE3);
+
+
 }
 
 //Consume API de búsqueda y renderiza listado vertical de películas de acuerdo con criterio de búsqueda
-async function searchMoviesByName(movieName, pag =1) {
+async function searchMoviesByName(movieName, pag = 1) {
+  window.removeEventListener("scroll", DELETE3);
   DOM_HEADER_CATEGORY_TITLE.innerText = "Search result";
-  const { data, status } = await api(`search/movie?query=${movieName}`,{
-    params:{
-      page: pag
-    }
+  const { data, status } = await api(`search/movie?query=${movieName}`, {
+    params: {
+      page: pag,
+    },
   });
   const movies = data.results;
-  
-  DOM_GET_MORE_BTN.removeEventListener("click", DELETE3);
 
-  DELETE3 = function () {
-    searchMoviesByName(movieName, pag)
-  }
-
-  DOM_GET_MORE_BTN.addEventListener("click", DELETE3);
-
-  if(pag === 1){
+  if (pag === 1) {
     renderMoviesGenericList(movies, DOM_GENERIC_LIST);
   } else {
-    renderMoviesGenericList(movies, DOM_GENERIC_LIST, false)
+    renderMoviesGenericList(movies, DOM_GENERIC_LIST, false);
   }
-
-
-
   pag++;
+
+  DELETE3 = async function () {
+    //Cada vez que el scroll llame la función se debe revisar si se está cerca de llegar al final para ver si carga el siguiente llamado a la API para renderizar más información
+    //Se usa desestructuración para capturar los valores de las variables
+    const { clientHeight, scrollTop, scrollHeight } = document.documentElement;
+
+    //Se valida si el usuario se encuenta en el final del html
+    const isScrollInFooter = scrollTop + clientHeight >= scrollHeight - 20;
+
+    if (isScrollInFooter) {
+      searchMoviesByName(movieName, pag);
+      console.log(pag);
+    }
+  };
+  window.addEventListener("scroll", DELETE3);
 }
 
 //Consume API de tendencias y renderiza lista de películas
-
 //ÚNICA FUNCIÓN MODIFICADA Y PARÁMETRO CLEAN DE RENDERMOVIESGENERICLIST
 async function getTrendingMovieList(pag = 1) {
-  console.log(pag);
+  window.removeEventListener("scroll", DELETE3);
   const { data, status } = await api(`trending/movie/day`, {
     params: {
       page: pag,
     },
   });
+
   DOM_HEADER_CATEGORY_TITLE.innerText = "Trending";
   const movies = await data.results;
 
@@ -343,17 +357,26 @@ async function getTrendingMovieList(pag = 1) {
   }
 
   pag++;
-  DOM_GET_MORE_BTN.removeEventListener("click", DELETE3);
-  DELETE3 = function () {
-    getTrendingMovieList(pag);
-  };
+  DELETE3 = async function () {
+    //Cada vez que el scroll llame la función se debe revisar si se está cerca de llegar al final para ver si carga el siguiente llamado a la API para renderizar más información
+    //Se usa desestructuración para capturar los valores de las variables
+    const { clientHeight, scrollTop, scrollHeight } = document.documentElement;
 
-  DOM_GET_MORE_BTN.addEventListener("click", DELETE3);
+    //Se valida si el usuario se encuenta en el final del html
+    const isScrollInFooter = scrollTop + clientHeight >= scrollHeight - 20;
+
+    if (isScrollInFooter) {
+      getTrendingMovieList(pag);
+      console.log(pag);
+    }
+  };
+  window.addEventListener("scroll", DELETE3);
 }
 
 //Consulta la variable global para saber qué películas están en la vista de like para renderizarlas
 
 async function getLikedMoviesList(sortParam) {
+  window.removeEventListener("scroll", DELETE3);
   const movies = [];
   for (const movieElement in moviesLikedList) {
     console.log(
