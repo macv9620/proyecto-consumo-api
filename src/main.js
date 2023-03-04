@@ -14,13 +14,14 @@ let moviesLikedList = {};
 
 let DELETE;
 let DELETE2;
+let DELETE3;
 
 let isAMovieDetailRendered = false;
 
 const observer = new IntersectionObserver(callback);
 
 function callback(entries, observer) {
-  console.log(entries, observer);
+  //console.log(entries, observer);
   entries.forEach((entry) => {
     //Con este condicional sólo se renderiza si hay interseccióncon el VP
     //entry.isIntersecting
@@ -28,7 +29,7 @@ function callback(entries, observer) {
       console.log(entry);
       //Se captura URL almacenada en atributo del dataSet
       const auxSrc = entry.target.dataset.src;
-      console.log(auxSrc);
+      //console.log(auxSrc);
       //Se setea URL en atributo scr para el renderizado
 
       entry.target.src = auxSrc;
@@ -38,30 +39,35 @@ function callback(entries, observer) {
 
 //Funciones de renderizacion recurrente
 //Renderiza un listado vertical de películas
-function renderMoviesGenericList(movies, domElementInsert) {
+function renderMoviesGenericList(movies, domElementInsert, clean = true) {
   //Limpia el renderizado anterior
-  domElementInsert.innerHTML = "";
+  if (clean) {
+    domElementInsert.innerHTML = "";
+  }
   movies.forEach((movie) => {
     const movieContainer = document.createElement("div");
     movieContainer.setAttribute("class", "movie-container");
     const imgTag = document.createElement("img");
     imgTag.setAttribute("class", "movie-img");
-    
-    if(movie.poster_path){
+
+    if (movie.poster_path) {
       imgTag.setAttribute("data-src", BASE_URL_IMAGE + movie.poster_path);
-    } else{
+    } else {
       //Si no hay imagen disponible se agrega un placehold de una API pública para indicar el nombre de la película
-      imgTag.setAttribute("data-src", `https://placehold.co/155x232/660000/white?text=${movie.title}`);
+      imgTag.setAttribute(
+        "data-src",
+        `https://placehold.co/155x232/660000/white?text=${movie.title}`
+      );
     }
-    
+
     imgTag.setAttribute("title", movie.original_title);
     imgTag.setAttribute("alt", movie.original_title);
-    
+
     domElementInsert.appendChild(movieContainer);
     movieContainer.appendChild(imgTag);
-    
+
     //Creación de botón like
-    
+
     const likeButton = document.createElement("button");
     likeButton.setAttribute("class", "like-button");
     movieContainer.appendChild(likeButton);
@@ -70,13 +76,13 @@ function renderMoviesGenericList(movies, domElementInsert) {
     spanButton.appendChild(likeIcon);
     likeButton.appendChild(spanButton);
     spanButton.setAttribute("class", "material-symbols-outlined");
-    
+
     likeButton.addEventListener("click", () => likeMovie(movie, likeButton));
-    
+
     renderLikedIcons(movie.id, likeButton);
     //-----------------------------------
     observer.observe(imgTag);
-    
+
     imgTag.addEventListener("click", () => {
       location.hash = `#movie=${movie.id}`;
     });
@@ -95,15 +101,17 @@ function renderMoviesHorizontalContainer(movies, domElementInsert) {
     const movieImg = document.createElement("img");
     movieImg.classList.add("movie-img");
 
-    if(movie.poster_path){
+    if (movie.poster_path) {
       movieImg.setAttribute("data-src", BASE_URL_IMAGE + movie.poster_path);
-    } else{
-      movieImg.setAttribute("data-src", `https://placehold.co/155x232/660000/white?text=${movie.title}`);
+    } else {
+      movieImg.setAttribute(
+        "data-src",
+        `https://placehold.co/155x232/660000/white?text=${movie.title}`
+      );
     }
 
-
     //Se almacena URL en atributo "auxiliar data-scr" con el objetivo de controlar cuando se seteará la URL en el src de acuerdo con la intersección y así implementar el lazy loading.
-    
+
     //movieImg.setAttribute("data-src", `${BASE_URL_IMAGE}${movie.poster_path}`);
     movieImg.setAttribute("alt", `${movie.original_title}`);
     movieImg.setAttribute("title", `${movie.original_title}`);
@@ -174,7 +182,6 @@ async function renderMovieDetail(movie) {
     DOM_MOVIE_DETAIL.insertBefore(DOM_MOVIE_SCORE, DOM_CATEGORIES_LIST);
     DOM_MOVIE_DETAIL.insertBefore(DOM_MOVIE_OVERVIEW, DOM_CATEGORIES_LIST);
     isAMovieDetailRendered = true;
-
 
     DOM_HEADER.style.backgroundImage = `url('${BASE_URL_IMAGE}${movie.poster_path}')`;
     DOM_DETAIL_MOVIE_TITLE.innerText = movie.original_title;
@@ -262,35 +269,86 @@ async function getCategoriesListPreview() {
 }
 
 //Consume API de descubrir y renderiza listado vertical de películas de acuerdo con el género
-async function getMovieListByGenre(genreId, categoryName) {
+async function getMovieListByGenre(genreId, categoryName, pag = 1) {
+
   const { data, status } = await api(
-    `discover/movie?with_genres=${genreId}&page=4`
+    `discover/movie?with_genres=${genreId}&page=${pag}`
   );
   DOM_HEADER_CATEGORY_TITLE.innerText = categoryName;
-
+  
   const movieList = await data.results;
-  console.log(movieList, "status: " + status);
+  
+  //Remueve el evento del botón Get More para no acumularlo
+  DOM_GET_MORE_BTN.removeEventListener("click", DELETE3);
+  DELETE3 = function () {
+    getMovieListByGenre(genreId, categoryName, pag);
+  };
 
-  renderMoviesGenericList(movieList, DOM_GENERIC_LIST);
+  DOM_GET_MORE_BTN.addEventListener("click", DELETE3);
+
+  if(pag === 1){
+    renderMoviesGenericList(movieList, DOM_GENERIC_LIST)
+  }else{
+    renderMoviesGenericList(movieList, DOM_GENERIC_LIST,false)
+  }
+  pag++;
 }
 
 //Consume API de búsqueda y renderiza listado vertical de películas de acuerdo con criterio de búsqueda
-async function searchMoviesByName(movieName) {
+async function searchMoviesByName(movieName, pag =1) {
   DOM_HEADER_CATEGORY_TITLE.innerText = "Search result";
-  const { data, status } = await api(`search/movie?query=${movieName}`);
+  const { data, status } = await api(`search/movie?query=${movieName}`,{
+    params:{
+      page: pag
+    }
+  });
   const movies = data.results;
-  console.log(status);
-  renderMoviesGenericList(movies, DOM_GENERIC_LIST);
+  
+  DOM_GET_MORE_BTN.removeEventListener("click", DELETE3);
+
+  DELETE3 = function () {
+    searchMoviesByName(movieName, pag)
+  }
+
+  DOM_GET_MORE_BTN.addEventListener("click", DELETE3);
+
+  if(pag === 1){
+    renderMoviesGenericList(movies, DOM_GENERIC_LIST);
+  } else {
+    renderMoviesGenericList(movies, DOM_GENERIC_LIST, false)
+  }
+
+
+
+  pag++;
 }
 
 //Consume API de tendencias y renderiza lista de películas
-async function getTrendingMovieList() {
-  const { data, status } = await api("trending/movie/day?page=1");
-  console.log(status);
-  console.log(data);
+
+//ÚNICA FUNCIÓN MODIFICADA Y PARÁMETRO CLEAN DE RENDERMOVIESGENERICLIST
+async function getTrendingMovieList(pag = 1) {
+  console.log(pag);
+  const { data, status } = await api(`trending/movie/day`, {
+    params: {
+      page: pag,
+    },
+  });
   DOM_HEADER_CATEGORY_TITLE.innerText = "Trending";
   const movies = await data.results;
-  renderMoviesGenericList(movies, DOM_GENERIC_LIST);
+
+  if (pag === 1) {
+    renderMoviesGenericList(movies, DOM_GENERIC_LIST);
+  } else {
+    renderMoviesGenericList(movies, DOM_GENERIC_LIST, false);
+  }
+
+  pag++;
+  DOM_GET_MORE_BTN.removeEventListener("click", DELETE3);
+  DELETE3 = function () {
+    getTrendingMovieList(pag);
+  };
+
+  DOM_GET_MORE_BTN.addEventListener("click", DELETE3);
 }
 
 //Consulta la variable global para saber qué películas están en la vista de like para renderizarlas
