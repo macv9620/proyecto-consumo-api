@@ -657,6 +657,10 @@ footer {
   max-height: 187.5px;
 }
 
+.no-more-movies{
+  text-align: center;
+}
+
 /*Footer*/
 .footer {
   background-color: var(--purple-medium-3);

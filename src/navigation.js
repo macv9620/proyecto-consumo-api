@@ -70,9 +70,10 @@ function trendsPageView() {
   DOM_MOVIE_DETAIL.classList.add("inactive");
   DOM_FOOTER.classList.remove("inactive");
   DOM_HOME_BUTTON.classList.remove("inactive");
-  DOM_GET_MORE_BTN.classList.remove("inactive");
+  //////DOM_GET_MORE_BTN.classList.remove("inactive");
   DOM_SEE_LIKED_MOVIES_BTN.classList.add("inactive");
   DOM_SORT_SECTION.classList.add("inactive");
+  DOM_NO_MORE_MOVIES.classList.add("inactive");
 
   DOM_GENERIC_LIST.innerHTML = `<div class="movie-container-generic--loading"></div>
   <div class="movie-container-generic--loading"></div>
@@ -105,9 +106,10 @@ function searchPageView() {
   DOM_MOVIE_DETAIL.classList.add("inactive");
   DOM_FOOTER.classList.remove("inactive");
   DOM_HOME_BUTTON.classList.remove("inactive");
-  DOM_GET_MORE_BTN.classList.remove("inactive");
+  //////DOM_GET_MORE_BTN.classList.remove("inactive");
   DOM_SEE_LIKED_MOVIES_BTN.classList.add("inactive");
   DOM_SORT_SECTION.classList.add("inactive");
+  DOM_NO_MORE_MOVIES.classList.add("inactive");
 
   console.log("Renderizar vista de resultados de búsqueda");
   const hash = location.hash;
@@ -145,9 +147,10 @@ function movieDetailPageView() {
   DOM_MOVIE_DETAIL.classList.remove("inactive");
   DOM_FOOTER.classList.add("inactive");
   DOM_HOME_BUTTON.classList.remove("inactive");
-  DOM_GET_MORE_BTN.classList.add("inactive");
+  //////DOM_GET_MORE_BTN.classList.add("inactive");
   DOM_SEE_LIKED_MOVIES_BTN.classList.add("inactive");
   DOM_SORT_SECTION.classList.add("inactive");
+  DOM_NO_MORE_MOVIES.classList.add("inactive");
 
   DOM_SIMILAR_MOVIES_CONTAINER.innerHTML = `<div class="movie-container movie-container--loading-similar"></div>
   <div class="movie-container movie-container--loading-similar"></div>
@@ -196,9 +199,10 @@ function categoryPageView() {
   DOM_HEADER.classList.add("header-container--categoryView");
   DOM_HOME_BUTTON.classList.remove("inactive");
   DOM_HEADER.style.backgroundImage = "";
-  DOM_GET_MORE_BTN.classList.remove("inactive");
+  //////DOM_GET_MORE_BTN.classList.remove("inactive");
   DOM_SEE_LIKED_MOVIES_BTN.classList.add("inactive");
   DOM_SORT_SECTION.classList.add("inactive");
+  DOM_NO_MORE_MOVIES.classList.add("inactive");
 
   console.log("Renderizar vista de películas por categoria");
 
@@ -242,9 +246,10 @@ function homePageView() {
   DOM_MOVIE_DETAIL.classList.add("inactive");
   DOM_FOOTER.classList.remove("inactive");
   DOM_HOME_BUTTON.classList.add("inactive");
-  DOM_GET_MORE_BTN.classList.add("inactive");
+  //////DOM_GET_MORE_BTN.classList.add("inactive");
   DOM_SEE_LIKED_MOVIES_BTN.classList.remove("inactive");
   DOM_SORT_SECTION.classList.add("inactive");
+  DOM_NO_MORE_MOVIES.classList.add("inactive");
 
   console.log("Renderizar vista Home");
   getTrendingPreview();
@@ -271,9 +276,10 @@ function likedPageView() {
   DOM_MOVIE_DETAIL.classList.add("inactive");
   DOM_FOOTER.classList.remove("inactive");
   DOM_HOME_BUTTON.classList.remove("inactive");
-  DOM_GET_MORE_BTN.classList.add("inactive");
+  //////DOM_GET_MORE_BTN.classList.add("inactive");
   DOM_SEE_LIKED_MOVIES_BTN.classList.add("inactive");
   DOM_SORT_SECTION.classList.remove("inactive");
+  DOM_NO_MORE_MOVIES.classList.add("inactive");
 
   DOM_SORT_BY_OPTIONS.forEach((option) => {
     option.removeEventListener("change", DELETE2);

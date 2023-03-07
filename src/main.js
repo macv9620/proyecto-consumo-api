@@ -9,13 +9,11 @@ const api = axios.create({
     api_key: API_KEY,
   },
 });
-
 let moviesLikedList = {};
 
 let DELETE;
 let DELETE2;
 let DELETE3;
-
 let isAMovieDetailRendered = false;
 
 const observer = new IntersectionObserver(callback);
@@ -35,6 +33,12 @@ function callback(entries, observer) {
       entry.target.src = auxSrc;
     }
   });
+}
+
+//Revisar si en el localStorage hay peliculas guardadas con Like
+if (window.localStorage.getItem("likedMovies")) {
+  console.log(localStorage.getItem("likedMovies"));
+  moviesLikedList =JSON.parse(window.localStorage.getItem("likedMovies"));
 }
 
 //Funciones de renderizacion recurrente
@@ -91,6 +95,8 @@ function renderMoviesGenericList(movies, domElementInsert, clean = true) {
 
 //Renderiza la previsualización de películas en una vista horizontal y con scroll horizontal
 function renderMoviesHorizontalContainer(movies, domElementInsert) {
+  window.removeEventListener("scroll", DELETE3);
+
   domElementInsert.innerHTML = "";
   movies.forEach((movie) => {
     const likeButton = document.createElement("button");
@@ -141,6 +147,8 @@ function renderMoviesHorizontalContainer(movies, domElementInsert) {
 }
 //Renderiza la lista de nombres de categorías
 function renderCategoriesPreviewList(categories, domElementInsert) {
+  window.removeEventListener("scroll", DELETE3);
+
   domElementInsert.innerHTML = "";
 
   categories.forEach((category) => {
@@ -162,6 +170,8 @@ function renderCategoriesPreviewList(categories, domElementInsert) {
 
 //Renderiza vista detallada de la película
 async function renderMovieDetail(movie) {
+  window.removeEventListener("scroll", DELETE3);
+
   //Se crea bandera para validar si la película ya fue renderizada, en caso de que no crea todos los elementos de la vista y los reemplaza, en caso de que sí entonces sólo modifica el contenido, esto se hace para evitar crear y crear nuevos nodos y elementos cada vez que se renderiza la página de detalle
   if (!isAMovieDetailRendered) {
     console.log("INGRESÉ");
@@ -247,6 +257,8 @@ async function getTrendingPreview() {
   const { data, status } = await api("trending/movie/day");
   console.log(status);
   console.log(data);
+  console.log("Total pages: " + data.total_pages);
+
   const movies = await data.results;
   const DOM_TRENDING_PREVIEW_MOVIE_LIST = document.querySelector(
     "#trendingPreview-movieList"
@@ -261,6 +273,7 @@ async function getCategoriesListPreview() {
   console.log(status);
   const genres = await data.genres;
   console.log(data);
+
   const categoriesPreviewContainer = document.querySelector(
     "#categoriesPreview .categoriesPreview-list"
   );
@@ -274,6 +287,8 @@ async function getMovieListByGenre(genreId, categoryName, pag = 1) {
   const { data, status } = await api(
     `discover/movie?with_genres=${genreId}&page=${pag}`
   );
+
+  console.log("Total pages: " + data.total_pages);
   DOM_HEADER_CATEGORY_TITLE.innerText = categoryName;
 
   const movieList = await data.results;
@@ -299,12 +314,14 @@ async function getMovieListByGenre(genreId, categoryName, pag = 1) {
     }
   };
   window.addEventListener("scroll", DELETE3);
-
-
 }
 
 //Consume API de búsqueda y renderiza listado vertical de películas de acuerdo con criterio de búsqueda
 async function searchMoviesByName(movieName, pag = 1) {
+  // if (data.total_pages < pag) {
+  //   console.log("No hay más datos para cargar SearchByName");
+  // }
+
   window.removeEventListener("scroll", DELETE3);
   DOM_HEADER_CATEGORY_TITLE.innerText = "Search result";
   const { data, status } = await api(`search/movie?query=${movieName}`, {
@@ -312,29 +329,38 @@ async function searchMoviesByName(movieName, pag = 1) {
       page: pag,
     },
   });
-  const movies = data.results;
 
-  if (pag === 1) {
-    renderMoviesGenericList(movies, DOM_GENERIC_LIST);
+  if (data.total_pages < pag) {
+    console.log("No hay más datos para cargar SearchByName");
+    DOM_NO_MORE_MOVIES.classList.remove("inactive");
   } else {
-    renderMoviesGenericList(movies, DOM_GENERIC_LIST, false);
-  }
-  pag++;
+    console.log("total_pages: " + data.total_pages);
 
-  DELETE3 = async function () {
-    //Cada vez que el scroll llame la función se debe revisar si se está cerca de llegar al final para ver si carga el siguiente llamado a la API para renderizar más información
-    //Se usa desestructuración para capturar los valores de las variables
-    const { clientHeight, scrollTop, scrollHeight } = document.documentElement;
+    const movies = data.results;
 
-    //Se valida si el usuario se encuenta en el final del html
-    const isScrollInFooter = scrollTop + clientHeight >= scrollHeight - 20;
-
-    if (isScrollInFooter) {
-      searchMoviesByName(movieName, pag);
-      console.log(pag);
+    if (pag === 1) {
+      renderMoviesGenericList(movies, DOM_GENERIC_LIST);
+    } else {
+      renderMoviesGenericList(movies, DOM_GENERIC_LIST, false);
     }
-  };
-  window.addEventListener("scroll", DELETE3);
+    pag++;
+
+    DELETE3 = async function () {
+      //Cada vez que el scroll llame la función se debe revisar si se está cerca de llegar al final para ver si carga el siguiente llamado a la API para renderizar más información
+      //Se usa desestructuración para capturar los valores de las variables
+      const { clientHeight, scrollTop, scrollHeight } =
+        document.documentElement;
+
+      //Se valida si el usuario se encuenta en el final del html
+      const isScrollInFooter = scrollTop + clientHeight >= scrollHeight - 20;
+
+      if (isScrollInFooter) {
+        searchMoviesByName(movieName, pag);
+        console.log(pag);
+      }
+    };
+    window.addEventListener("scroll", DELETE3);
+  }
 }
 
 //Consume API de tendencias y renderiza lista de películas
@@ -433,20 +459,26 @@ async function likeMovie(movie, domElementToBechanged) {
   if (moviesLikedList === {}) {
     moviesLikedList[movie.id] = new LikedMovie(movie);
     domElementToBechanged.setAttribute("class", "like-button--clicked");
+    localStorage.setItem("likedMovies", JSON.stringify(moviesLikedList));
     console.log(moviesLikedList);
     console.log("Diste Like a " + movie.title);
   } else if (moviesLikedList[movie.id]) {
     delete moviesLikedList[movie.id];
     domElementToBechanged.removeAttribute("class", "like-button--clicked");
     domElementToBechanged.setAttribute("class", "like-button");
+    localStorage.setItem("likedMovies", JSON.stringify(moviesLikedList));
+
     console.log(moviesLikedList);
     console.log("Diste DisLike a " + movie.title);
   } else {
     moviesLikedList[movie.id] = new LikedMovie(movie);
     domElementToBechanged.setAttribute("class", "like-button--clicked");
+    localStorage.setItem("likedMovies", JSON.stringify(moviesLikedList));
+
     console.log(moviesLikedList);
     console.log("Diste Like a " + movie.title);
   }
+  console.log(JSON.parse(localStorage.getItem("likedMovies")));
 }
 
 class LikedMovie {
