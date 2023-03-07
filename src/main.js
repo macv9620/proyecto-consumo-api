@@ -306,7 +306,7 @@ async function getMovieListByGenre(genreId, categoryName, pag = 1) {
     const { clientHeight, scrollTop, scrollHeight } = document.documentElement;
 
     //Se valida si el usuario se encuenta en el final del html
-    const isScrollInFooter = scrollTop + clientHeight >= scrollHeight - 20;
+    const isScrollInFooter = scrollTop + clientHeight >= scrollHeight - 100;
 
     if (isScrollInFooter) {
       getMovieListByGenre(genreId, categoryName, pag);
@@ -352,7 +352,7 @@ async function searchMoviesByName(movieName, pag = 1) {
         document.documentElement;
 
       //Se valida si el usuario se encuenta en el final del html
-      const isScrollInFooter = scrollTop + clientHeight >= scrollHeight - 20;
+      const isScrollInFooter = scrollTop + clientHeight >= scrollHeight - 100;
 
       if (isScrollInFooter) {
         searchMoviesByName(movieName, pag);
@@ -389,7 +389,7 @@ async function getTrendingMovieList(pag = 1) {
     const { clientHeight, scrollTop, scrollHeight } = document.documentElement;
 
     //Se valida si el usuario se encuenta en el final del html
-    const isScrollInFooter = scrollTop + clientHeight >= scrollHeight - 20;
+    const isScrollInFooter = scrollTop + clientHeight >= scrollHeight - 100;
 
     if (isScrollInFooter) {
       getTrendingMovieList(pag);
