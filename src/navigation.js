@@ -74,6 +74,7 @@ function trendsPageView() {
   DOM_SEE_LIKED_MOVIES_BTN.classList.add("inactive");
   DOM_SORT_SECTION.classList.add("inactive");
   DOM_NO_MORE_MOVIES.classList.add("inactive");
+  DOM_HOME_SET_LANGUAGE.classList.add("inactive");
 
   DOM_GENERIC_LIST.innerHTML = `<div class="movie-container-generic--loading"></div>
   <div class="movie-container-generic--loading"></div>
@@ -110,6 +111,7 @@ function searchPageView() {
   DOM_SEE_LIKED_MOVIES_BTN.classList.add("inactive");
   DOM_SORT_SECTION.classList.add("inactive");
   DOM_NO_MORE_MOVIES.classList.add("inactive");
+  DOM_HOME_SET_LANGUAGE.classList.add("inactive");
 
   console.log("Renderizar vista de resultados de búsqueda");
   const hash = location.hash;
@@ -151,27 +153,26 @@ function movieDetailPageView() {
   DOM_SEE_LIKED_MOVIES_BTN.classList.add("inactive");
   DOM_SORT_SECTION.classList.add("inactive");
   DOM_NO_MORE_MOVIES.classList.add("inactive");
+  DOM_HOME_SET_LANGUAGE.classList.add("inactive");
 
   DOM_SIMILAR_MOVIES_CONTAINER.innerHTML = `<div class="movie-container movie-container--loading-similar"></div>
   <div class="movie-container movie-container--loading-similar"></div>
   <div class="movie-container movie-container--loading-similar"></div>`;
 
-  if(isAMovieDetailRendered){
-  const DOM_DETAIL_MOVIE_TITLE = document.querySelector(
-    "#movieDetail .movieDetail-title"
-  );
-  const DOM_MOVIE_SCORE = document.querySelector(
-    "#movieDetail .movieDetail-score"
-  );
-  const DOM_MOVIE_OVERVIEW = document.querySelector(
-    "#movieDetail .movieDetail-description"
-  );
-  DOM_DETAIL_MOVIE_TITLE.innerHTML="";
-  DOM_MOVIE_SCORE.innerHTML="";
-  DOM_MOVIE_OVERVIEW.innerHTML="";
+  if (isAMovieDetailRendered) {
+    const DOM_DETAIL_MOVIE_TITLE = document.querySelector(
+      "#movieDetail .movieDetail-title"
+    );
+    const DOM_MOVIE_SCORE = document.querySelector(
+      "#movieDetail .movieDetail-score"
+    );
+    const DOM_MOVIE_OVERVIEW = document.querySelector(
+      "#movieDetail .movieDetail-description"
+    );
+    DOM_DETAIL_MOVIE_TITLE.innerHTML = "";
+    DOM_MOVIE_SCORE.innerHTML = "";
+    DOM_MOVIE_OVERVIEW.innerHTML = "";
   }
-
- 
 
   //Parciar el hash
   const hash = location.hash;
@@ -203,6 +204,7 @@ function categoryPageView() {
   DOM_SEE_LIKED_MOVIES_BTN.classList.add("inactive");
   DOM_SORT_SECTION.classList.add("inactive");
   DOM_NO_MORE_MOVIES.classList.add("inactive");
+  DOM_HOME_SET_LANGUAGE.classList.add("inactive");
 
   console.log("Renderizar vista de películas por categoria");
 
@@ -250,6 +252,36 @@ function homePageView() {
   DOM_SEE_LIKED_MOVIES_BTN.classList.remove("inactive");
   DOM_SORT_SECTION.classList.add("inactive");
   DOM_NO_MORE_MOVIES.classList.add("inactive");
+  DOM_HOME_SET_LANGUAGE.classList.remove("inactive");
+  DOM_SEARCH_BAR.setAttribute("placeholder", translatedTitles.searchBarText);
+  DOM_HEADER_CATEGORY_TITLE_HOME.innerText =
+    translatedTitles.headerTrendingTitle;
+  DOM_TRENDING_MORE_BTN.innerText = translatedTitles.homeTrendingMoreBtn;
+  DOM_CATEGORIES_TITLE_HOME.innerText = translatedTitles.homeCategoriesTitle;
+  DOM_SEE_LIKED_MOVIES_BTN.innerText = translatedTitles.homeSeeLikedMovies;
+
+  DOM_HOME_SET_LANGUAGE.removeEventListener("change", DELETE4);
+
+  DELETE4 = function () {
+    const languageValue = document.querySelector("#languageOptions").value;
+    console.log("Change language to: " + languageValue);
+    lang = languageValue;
+    translatedTitles = new SetLanguage();
+    translatedTitles.changeLanguage(lang);
+    api = axios.create({
+      baseURL: "https://api.themoviedb.org/3/",
+      headers: {
+        "Content-Type": "application/json;charset=utf-8",
+      },
+      params: {
+        api_key: API_KEY,
+        language: lang,
+      },
+    });
+    homePageView();
+  };
+
+  DOM_HOME_SET_LANGUAGE.addEventListener("change", DELETE4);
 
   console.log("Renderizar vista Home");
   getTrendingPreview();
@@ -280,6 +312,7 @@ function likedPageView() {
   DOM_SEE_LIKED_MOVIES_BTN.classList.add("inactive");
   DOM_SORT_SECTION.classList.remove("inactive");
   DOM_NO_MORE_MOVIES.classList.add("inactive");
+  DOM_HOME_SET_LANGUAGE.classList.add("inactive");
 
   DOM_SORT_BY_OPTIONS.forEach((option) => {
     option.removeEventListener("change", DELETE2);

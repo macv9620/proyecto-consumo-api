@@ -1,12 +1,14 @@
+let lang = "en";
 const API_KEY = "c27f4ca65812a399a89873d607d04fcb";
 const BASE_URL_IMAGE = "https://image.tmdb.org/t/p/w500";
-const api = axios.create({
+let api = axios.create({
   baseURL: "https://api.themoviedb.org/3/",
   headers: {
     "Content-Type": "application/json;charset=utf-8",
   },
   params: {
     api_key: API_KEY,
+    language: lang,
   },
 });
 let moviesLikedList = {};
@@ -14,6 +16,7 @@ let moviesLikedList = {};
 let DELETE;
 let DELETE2;
 let DELETE3;
+let DELETE4;
 let isAMovieDetailRendered = false;
 
 const observer = new IntersectionObserver(callback);
@@ -34,6 +37,38 @@ function callback(entries, observer) {
     }
   });
 }
+
+//Sección para cambio de language
+
+ class SetLanguage {
+   constructor(){
+   }
+   changeLanguage(lang){
+    if(lang === "es"){
+      this.searchBarText = "Buscar Película";
+      this.headerTrendingTitle = "Tendencias";
+      this.homeTrendingMoreBtn = "Más";
+      this.homeCategoriesTitle = "Categorías";
+      this.homeSeeLikedMovies = "Películas Favoritas";
+
+    } if (lang === "en"){
+      this.searchBarText = "Search Movie";
+      this.headerTrendingTitle = "Trending";
+      this.homeTrendingMoreBtn = "More";
+      this.homeCategoriesTitle = "Categories";
+      this.homeSeeLikedMovies = "See Liked Movies";
+    }
+   }
+ }
+
+ let translatedTitles = new SetLanguage;
+ translatedTitles.changeLanguage(lang);
+
+//TERMINAR DE TRADUCIR DEMÁS VISTAS
+//CORREGIR CAMBIO DE IDIOMA DE LO QUE SE ALMACENA EN EL LOCALSTORAGE
+
+//-----------------------------
+
 
 //Revisar si en el localStorage hay peliculas guardadas con Like
 if (window.localStorage.getItem("likedMovies")) {
@@ -64,8 +99,8 @@ function renderMoviesGenericList(movies, domElementInsert, clean = true) {
       );
     }
 
-    imgTag.setAttribute("title", movie.original_title);
-    imgTag.setAttribute("alt", movie.original_title);
+    imgTag.setAttribute("title", movie.title);
+    imgTag.setAttribute("alt", movie.title);
 
     domElementInsert.appendChild(movieContainer);
     movieContainer.appendChild(imgTag);
@@ -119,8 +154,8 @@ function renderMoviesHorizontalContainer(movies, domElementInsert) {
     //Se almacena URL en atributo "auxiliar data-scr" con el objetivo de controlar cuando se seteará la URL en el src de acuerdo con la intersección y así implementar el lazy loading.
 
     //movieImg.setAttribute("data-src", `${BASE_URL_IMAGE}${movie.poster_path}`);
-    movieImg.setAttribute("alt", `${movie.original_title}`);
-    movieImg.setAttribute("title", `${movie.original_title}`);
+    movieImg.setAttribute("alt", `${movie.title}`);
+    movieImg.setAttribute("title", `${movie.title}`);
     movieContainer.appendChild(movieImg);
 
     observer.observe(movieImg);
@@ -194,7 +229,7 @@ async function renderMovieDetail(movie) {
     isAMovieDetailRendered = true;
 
     DOM_HEADER.style.backgroundImage = `url('${BASE_URL_IMAGE}${movie.poster_path}')`;
-    DOM_DETAIL_MOVIE_TITLE.innerText = movie.original_title;
+    DOM_DETAIL_MOVIE_TITLE.innerText = movie.title;
     DOM_MOVIE_SCORE.innerText = movie.vote_average.toFixed(1);
     DOM_MOVIE_OVERVIEW.innerText = movie.overview;
   } else {
@@ -209,7 +244,7 @@ async function renderMovieDetail(movie) {
     );
 
     DOM_HEADER.style.backgroundImage = `url('${BASE_URL_IMAGE}${movie.poster_path}')`;
-    DOM_DETAIL_MOVIE_TITLE.innerText = movie.original_title;
+    DOM_DETAIL_MOVIE_TITLE.innerText = movie.title;
     DOM_MOVIE_SCORE.innerText = movie.vote_average.toFixed(1);
     DOM_MOVIE_OVERVIEW.innerText = movie.overview;
   }
@@ -373,7 +408,7 @@ async function getTrendingMovieList(pag = 1) {
     },
   });
 
-  DOM_HEADER_CATEGORY_TITLE.innerText = "Trending";
+  DOM_HEADER_CATEGORY_TITLE.innerText =  translatedTitles.headerTrendingTitle;
   const movies = await data.results;
 
   if (pag === 1) {

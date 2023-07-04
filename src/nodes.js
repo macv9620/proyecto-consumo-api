@@ -40,3 +40,7 @@ const DOM_SORT_SECTION = document.querySelector(".sort");
 const DOM_CATEGORIES_LIST = document.querySelector(".categories-list");
 
 const DOM_NO_MORE_MOVIES = document.querySelector(".no-more-movies");
+const DOM_SEARCH_BAR =  document.querySelector("#searchForm input");
+const DOM_HEADER_CATEGORY_TITLE_HOME = document.querySelector(".trendingPreview-header h2");
+const DOM_CATEGORIES_TITLE_HOME = document.querySelector(".categoriesPreview-title");
+const DOM_HOME_SET_LANGUAGE = document.querySelector("#setLanguage");

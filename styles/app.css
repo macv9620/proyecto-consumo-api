@@ -30,9 +30,13 @@
 
 html {
   background-color: var(--purple-medium-3);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
 }
 
 body {
+  min-height: 100vh;
   background-color: var(--purple-light-1);
   color: var(--purple-dark-2);
   font-family: var(--font-family-text);
@@ -40,6 +44,9 @@ body {
   font-size: 16px;
   margin: 4px 0 0 0;
   padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
 
 h1,
@@ -131,7 +138,7 @@ button {
 .trendingPreview-container,
 .categoriesPreview-container,
 footer {
-  margin-top: 48px;
+  margin-top: auto;
 }
 
 .trendingPreview-header,
@@ -670,6 +677,7 @@ footer {
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-top: auto;
 }
 
 .sort {
@@ -681,7 +689,7 @@ footer {
   gap: 10px;
 }
 
-.sort-list {
+.sort-list, .language-list {
   background-color: var(--purple-dark-2);
   color: white;
   border: none;
