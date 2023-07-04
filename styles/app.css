@@ -135,6 +135,12 @@ button {
   padding: 0 24px;
 }
 
+.categoriesPreview-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
 .trendingPreview-container,
 .categoriesPreview-container,
 footer {
@@ -224,10 +230,15 @@ footer {
   flex-wrap: wrap;
 }
 
+.categoriesPreview-list {
+  max-width: 500px;
+  align-self: center;
+}
+
 /* Header */
 
 .header-container {
-  padding-top: 40px;
+  padding-top: 0px;
 }
 
 .header-container--title-fixed {
@@ -294,8 +305,13 @@ footer {
 .seeLikedMovies {
   border-radius: 8px;
   height: 50px;
-  width: 90px;
-  box-shadow: rgba(0, 0, 0, 0.56) 0px 22px 70px 4px;
+  width: 120px;
+  transition: 1s;
+}
+
+.seeLikedMovies:hover {
+  box-shadow: rgba(0, 0, 0, 0.56) 0px 10px 70px 2px;
+  transition: 0.5s;
 }
 
 /*Este modificador de clase se usa para cambiar el layout a la hora de visualizar el detalle de una película"*/
@@ -372,6 +388,10 @@ footer {
   border-bottom-right-radius: 8px;
 }
 
+.header-searchForm button svg {
+  width: 25px;
+}
+
 /*Trending*/
 
 .trendingPreview-header {
@@ -384,6 +404,12 @@ footer {
   border-radius: 8px;
   height: 32px;
   width: 72px;
+  transition: 1s;
+}
+
+.trendingPreview-btn:hover {
+    box-shadow: rgba(0, 0, 0, 0.56) 0px 10px 70px 2px;
+    transition: 0.5s;
 }
 
 .trendingPreview-movieList {
@@ -396,6 +422,21 @@ footer {
   height: 241px;
   padding-left: 24px;
   padding-bottom: 16px;
+}
+
+.trendingPreview-movieList::-webkit-scrollbar {
+  height: 5px;
+}
+ 
+.trendingPreview-movieList::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  border-radius: 2px;
+}
+ 
+.trendingPreview-movieList::-webkit-scrollbar-thumb {
+  background-color: grey;
+  outline: 1px solid grey;
+  border-radius: 2px;
 }
 
 .trendingPreview-movieList .movie-container {
@@ -633,6 +674,7 @@ footer {
 
 .relatedMovies-container {
   margin-top: 24px;
+  margin-bottom: 15px;
   height: 216px;
 }
 
@@ -646,8 +688,22 @@ footer {
   overflow-y: hidden;
   white-space: nowrap;
   width: calc(100vw - 45px);
-  padding-bottom: 16px;
   max-height: 210px;
+}
+
+.relatedMovies-scrollContainer::-webkit-scrollbar {
+  height: 5px;
+}
+ 
+.relatedMovies-scrollContainer::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  border-radius: 2px;
+}
+ 
+.relatedMovies-scrollContainer::-webkit-scrollbar-thumb {
+  background-color: grey;
+  outline: 1px solid grey;
+  border-radius: 2px;
 }
 
 .relatedMovies-scrollContainer .movie-container {

@@ -56,7 +56,7 @@ function callback(entries, observer) {
       this.headerTrendingTitle = "Trending";
       this.homeTrendingMoreBtn = "More";
       this.homeCategoriesTitle = "Categories";
-      this.homeSeeLikedMovies = "See Liked Movies";
+      this.homeSeeLikedMovies = "Liked Movies";
     }
    }
  }
