@@ -4,6 +4,10 @@
   box-sizing: border-box;
 }
 
+body {
+  display: flex;
+}
+
 :root {
   --purple-light-1: #fbfafb;
   --purple-light-2: #eeeaf2;
@@ -321,7 +325,9 @@ footer {
     rgba(0, 0, 0, 0) 29.17%
   );
   background-size: cover !important;
-  height: 480px;
+  background-repeat: no-repeat;
+  background-position: center;
+  height: 100vh;
   position: fixed;
   top: 0;
   width: 100%;
@@ -636,9 +642,10 @@ footer {
   /*el position absolute fija la imagen y gracias al z-index*/
   position: absolute;
   background-color: var(--purple-light-1);
-  width: 100%;
+  max-width: 800px;
   display: flex;
   flex-direction: column;
+  align-self: center;
 }
 /*
 @keyframes spinner {
@@ -708,6 +715,8 @@ footer {
   white-space: nowrap;
   width: calc(100vw - 45px);
   max-height: 210px;
+  max-width: 700px;
+  align-self: center;
 }
 
 .relatedMovies-scrollContainer::-webkit-scrollbar {
