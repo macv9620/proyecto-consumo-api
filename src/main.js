@@ -1,6 +1,7 @@
 let lang = "en";
 const API_KEY = "c27f4ca65812a399a89873d607d04fcb";
 const BASE_URL_IMAGE = "https://image.tmdb.org/t/p/w500";
+const BASE_URL_IMAGE_HQ = "https://image.tmdb.org/t/p/w1280";
 let api = axios.create({
   baseURL: "https://api.themoviedb.org/3/",
   headers: {
@@ -228,7 +229,7 @@ async function renderMovieDetail(movie) {
     DOM_MOVIE_DETAIL.insertBefore(DOM_MOVIE_OVERVIEW, DOM_CATEGORIES_LIST);
     isAMovieDetailRendered = true;
 
-    DOM_HEADER.style.backgroundImage = `url('${BASE_URL_IMAGE}${movie.poster_path}')`;
+    DOM_HEADER.style.backgroundImage = `url('${BASE_URL_IMAGE_HQ}${movie.backdrop_path}')`;
     DOM_DETAIL_MOVIE_TITLE.innerText = movie.title;
     DOM_MOVIE_SCORE.innerText = movie.vote_average.toFixed(1);
     DOM_MOVIE_OVERVIEW.innerText = movie.overview;
@@ -243,7 +244,7 @@ async function renderMovieDetail(movie) {
       "#movieDetail .movieDetail-description"
     );
 
-    DOM_HEADER.style.backgroundImage = `url('${BASE_URL_IMAGE}${movie.poster_path}')`;
+    DOM_HEADER.style.backgroundImage = `url('${BASE_URL_IMAGE_HQ}${movie.backdrop_path}')`;
     DOM_DETAIL_MOVIE_TITLE.innerText = movie.title;
     DOM_MOVIE_SCORE.innerText = movie.vote_average.toFixed(1);
     DOM_MOVIE_OVERVIEW.innerText = movie.overview;
