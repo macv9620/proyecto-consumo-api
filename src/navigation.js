@@ -52,7 +52,6 @@ function navigator() {
 }
 
 function trendsPageView() {
-  console.log("Renderizar vista de tendencias");
   DOM_HEADER.classList.remove("inactive");
   DOM_HEADER.classList.remove("header-container--long");
   DOM_HEADER.classList.remove("header-container--categoryView");
@@ -113,7 +112,7 @@ function searchPageView() {
   DOM_NO_MORE_MOVIES.classList.add("inactive");
   DOM_HOME_SET_LANGUAGE.classList.add("inactive");
 
-  console.log("Renderizar vista de resultados de búsqueda");
+
   const hash = location.hash;
   const movieName = hash.split("=").pop();
 
@@ -206,7 +205,6 @@ function categoryPageView() {
   DOM_NO_MORE_MOVIES.classList.add("inactive");
   DOM_HOME_SET_LANGUAGE.classList.add("inactive");
 
-  console.log("Renderizar vista de películas por categoria");
 
   //Parciar el hash para dividirlo en ID y nombre de categoria
   const hash = location.hash;
@@ -264,7 +262,7 @@ function homePageView() {
 
   DELETE4 = function () {
     const languageValue = document.querySelector("#languageOptions").value;
-    console.log("Change language to: " + languageValue);
+
     lang = languageValue;
     translatedTitles = new SetLanguage();
     translatedTitles.changeLanguage(lang);
@@ -283,14 +281,14 @@ function homePageView() {
 
   DOM_HOME_SET_LANGUAGE.addEventListener("change", DELETE4);
 
-  console.log("Renderizar vista Home");
+
   getTrendingPreview();
   getCategoriesListPreview();
 }
 
 function likedPageView() {
   DOM_HEADER.style.backgroundImage = "";
-  console.log("Renderizar vista liked");
+
   DOM_HEADER.classList.remove("inactive");
   DOM_HEADER.classList.remove("header-container--long");
   DOM_HEADER.classList.remove("header-container--categoryView");
@@ -316,7 +314,6 @@ function likedPageView() {
 
   DOM_SORT_BY_OPTIONS.forEach((option) => {
     option.removeEventListener("change", DELETE2);
-    console.log(option);
     DELETE2 = function () {
       getLikedMoviesList(option.value);
     };

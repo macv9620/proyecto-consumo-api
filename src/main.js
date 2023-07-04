@@ -23,15 +23,15 @@ let isAMovieDetailRendered = false;
 const observer = new IntersectionObserver(callback);
 
 function callback(entries, observer) {
-  //console.log(entries, observer);
+
   entries.forEach((entry) => {
     //Con este condicional sólo se renderiza si hay interseccióncon el VP
     //entry.isIntersecting
     if (entry.isIntersecting) {
-      //console.log(entry);
+
       //Se captura URL almacenada en atributo del dataSet
       const auxSrc = entry.target.dataset.src;
-      //console.log(auxSrc);
+
       //Se setea URL en atributo scr para el renderizado
 
       entry.target.src = auxSrc;
@@ -73,7 +73,7 @@ function callback(entries, observer) {
 
 //Revisar si en el localStorage hay peliculas guardadas con Like
 if (window.localStorage.getItem("likedMovies")) {
-  console.log(localStorage.getItem("likedMovies"));
+
   moviesLikedList =JSON.parse(window.localStorage.getItem("likedMovies"));
 }
 
@@ -210,7 +210,7 @@ async function renderMovieDetail(movie) {
 
   //Se crea bandera para validar si la película ya fue renderizada, en caso de que no crea todos los elementos de la vista y los reemplaza, en caso de que sí entonces sólo modifica el contenido, esto se hace para evitar crear y crear nuevos nodos y elementos cada vez que se renderiza la página de detalle
   if (!isAMovieDetailRendered) {
-    console.log("INGRESÉ");
+
     const DOM_DETAIL_MOVIE_TITLE = document.createElement("h1");
     DOM_DETAIL_MOVIE_TITLE.setAttribute("class", "movieDetail-title");
 
@@ -291,9 +291,7 @@ async function renderMovieDetail(movie) {
 //Consume API de tendencicas y renderiza listado con scroll horizontal
 async function getTrendingPreview() {
   const { data, status } = await api("trending/movie/day");
-  console.log(status);
-  console.log(data);
-  console.log("Total pages: " + data.total_pages);
+
 
   const movies = await data.results;
   const DOM_TRENDING_PREVIEW_MOVIE_LIST = document.querySelector(
@@ -306,9 +304,9 @@ async function getTrendingPreview() {
 //Consume API de categorías y renderiza listado de nombres
 async function getCategoriesListPreview() {
   const { data, status } = await api("genre/movie/list");
-  console.log(status);
+
   const genres = await data.genres;
-  console.log(data);
+
 
   const categoriesPreviewContainer = document.querySelector(
     "#categoriesPreview .categoriesPreview-list"
@@ -324,7 +322,7 @@ async function getMovieListByGenre(genreId, categoryName, pag = 1) {
     `discover/movie?with_genres=${genreId}&page=${pag}`
   );
 
-  console.log("Total pages: " + data.total_pages);
+
   DOM_HEADER_CATEGORY_TITLE.innerText = categoryName;
 
   const movieList = await data.results;
@@ -346,7 +344,7 @@ async function getMovieListByGenre(genreId, categoryName, pag = 1) {
 
     if (isScrollInFooter) {
       getMovieListByGenre(genreId, categoryName, pag);
-      console.log(pag);
+
     }
   };
   window.addEventListener("scroll", DELETE3);
@@ -355,7 +353,7 @@ async function getMovieListByGenre(genreId, categoryName, pag = 1) {
 //Consume API de búsqueda y renderiza listado vertical de películas de acuerdo con criterio de búsqueda
 async function searchMoviesByName(movieName, pag = 1) {
   // if (data.total_pages < pag) {
-  //   console.log("No hay más datos para cargar SearchByName");
+
   // }
 
   window.removeEventListener("scroll", DELETE3);
@@ -367,10 +365,10 @@ async function searchMoviesByName(movieName, pag = 1) {
   });
 
   if (data.total_pages < pag) {
-    console.log("No hay más datos para cargar SearchByName");
+
     DOM_NO_MORE_MOVIES.classList.remove("inactive");
   } else {
-    console.log("total_pages: " + data.total_pages);
+
 
     const movies = data.results;
 
@@ -392,7 +390,7 @@ async function searchMoviesByName(movieName, pag = 1) {
 
       if (isScrollInFooter) {
         searchMoviesByName(movieName, pag);
-        console.log(pag);
+
       }
     };
     window.addEventListener("scroll", DELETE3);
@@ -429,7 +427,7 @@ async function getTrendingMovieList(pag = 1) {
 
     if (isScrollInFooter) {
       getTrendingMovieList(pag);
-      console.log(pag);
+
     }
   };
   window.addEventListener("scroll", DELETE3);
@@ -441,21 +439,15 @@ async function getLikedMoviesList(sortParam) {
   window.removeEventListener("scroll", DELETE3);
   const movies = [];
   for (const movieElement in moviesLikedList) {
-    console.log(
-      Number(
-        moviesLikedList[movieElement].movieDetail.release_date
-          .replace("-", "")
-          .replace("-", "")
-      )
-    );
+
     movies.push(moviesLikedList[movieElement].movieDetail);
   }
 
   if (sortParam === "Popularity") {
-    console.log("Ordenar por popularidad");
+
     movies.sort((a, b) => b.popularity - a.popularity);
   } else if (sortParam === "Release Date") {
-    console.log("Ordenar por Release Date");
+
     movies.sort((a, b) => {
       return (
         Number(b.release_date.replace("-", "").replace("-", "")) -
@@ -463,11 +455,11 @@ async function getLikedMoviesList(sortParam) {
       );
     });
   } else {
-    console.log("Ordenar por Like Date");
+
     movies.sort((a, b) => b.getTime - a.getTime);
   }
 
-  console.log(movies);
+
   DOM_HEADER_CATEGORY_TITLE.innerText = "Liked Movies List";
   renderMoviesGenericList(movies, DOM_GENERIC_LIST);
 }
@@ -481,7 +473,7 @@ async function getMovieDetail(movieId) {
   <div class="category-container category-container--loading"></div>
   `;
   const { data, status } = await api(`movie/${movieId}`);
-  console.log(DOM_MOVIE_DETAIL);
+
   renderMovieDetail(data);
 }
 
@@ -496,25 +488,22 @@ async function likeMovie(movie, domElementToBechanged) {
     moviesLikedList[movie.id] = new LikedMovie(movie);
     domElementToBechanged.setAttribute("class", "like-button--clicked");
     localStorage.setItem("likedMovies", JSON.stringify(moviesLikedList));
-    console.log(moviesLikedList);
-    console.log("Diste Like a " + movie.title);
+
   } else if (moviesLikedList[movie.id]) {
     delete moviesLikedList[movie.id];
     domElementToBechanged.removeAttribute("class", "like-button--clicked");
     domElementToBechanged.setAttribute("class", "like-button");
     localStorage.setItem("likedMovies", JSON.stringify(moviesLikedList));
 
-    console.log(moviesLikedList);
-    console.log("Diste DisLike a " + movie.title);
+
   } else {
     moviesLikedList[movie.id] = new LikedMovie(movie);
     domElementToBechanged.setAttribute("class", "like-button--clicked");
     localStorage.setItem("likedMovies", JSON.stringify(moviesLikedList));
 
-    console.log(moviesLikedList);
-    console.log("Diste Like a " + movie.title);
+
   }
-  console.log(JSON.parse(localStorage.getItem("likedMovies")));
+
 }
 
 class LikedMovie {
