@@ -119,7 +119,7 @@ button {
   position: fixed;
   bottom: 30px;
   /*transform: rotate(90deg);*/
-  left: 83vw;
+  right: 2vw;
   font-size: 14px;
   z-index: 5;
   padding: 10px;
@@ -586,6 +586,23 @@ footer {
 .genericList-container .movie-img {
   width: 100%;
   margin-top: 2px;
+}
+
+@media (min-width: 580px) {
+  .genericList-container .movie-container {
+    justify-content: center;
+    width: auto;
+  }
+
+  .genericList-container{
+    justify-content: center;
+  }
+
+  .genericList-container .movie-img {
+    width: 225px;
+    margin-top: 2px;
+  }
+
 }
 
 .movie-container-generic--loading{
