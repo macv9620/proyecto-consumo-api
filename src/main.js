@@ -229,7 +229,7 @@ async function renderMovieDetail(movie) {
     DOM_MOVIE_DETAIL.insertBefore(DOM_MOVIE_OVERVIEW, DOM_CATEGORIES_LIST);
     isAMovieDetailRendered = true;
 
-    DOM_HEADER.style.backgroundImage = `url('${BASE_URL_IMAGE_HQ}${movie.backdrop_path}')`;
+    DOM_HEADER.style.backgroundImage = `url('${BASE_URL_IMAGE_HQ}${movie.poster_path}')`;
     DOM_DETAIL_MOVIE_TITLE.innerText = movie.title;
     DOM_MOVIE_SCORE.innerText = movie.vote_average.toFixed(1);
     DOM_MOVIE_OVERVIEW.innerText = movie.overview;
@@ -244,7 +244,7 @@ async function renderMovieDetail(movie) {
       "#movieDetail .movieDetail-description"
     );
 
-    DOM_HEADER.style.backgroundImage = `url('${BASE_URL_IMAGE_HQ}${movie.backdrop_path}')`;
+    DOM_HEADER.style.backgroundImage = `url('${BASE_URL_IMAGE_HQ}${movie.poster_path}')`;
     DOM_DETAIL_MOVIE_TITLE.innerText = movie.title;
     DOM_MOVIE_SCORE.innerText = movie.vote_average.toFixed(1);
     DOM_MOVIE_OVERVIEW.innerText = movie.overview;
